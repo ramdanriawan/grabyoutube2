@@ -1,0 +1,31 @@
+#container-fluid-header{
+	background-color: #333;
+	color: white;
+	padding: 10px;
+}
+
+#container-fluid-footer{
+	background-color: #222;
+	color: white;
+	padding: 10px;	
+}
+
+span>a#logo{
+	font-size: 20px;
+
+}
+
+button.btn.btn-success#btn-get-data{
+margin: 0 10px;
+}
+
+#container-body{
+margin: 15px;
+}
+
+@media screen and (max-width: 480px) {
+	#menu_header{
+		margin-top: 10px;
+	}	
+}
+
