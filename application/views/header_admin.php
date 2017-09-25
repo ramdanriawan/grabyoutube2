@@ -31,9 +31,9 @@
         <!-- untuk link  -->
         <div class="col-md-8 col-xs-12" id="menu_header">
           <ul class="nav nav-tabs nav-justified">
-            <li class="<?php print $this->input->get('cchanel_admin');?>"><a href="cchanel_admin?cchanel_admin=active" >Chanel</a></li>
-            <li class="<?php print $this->input->get('cvideos_admin');?>"><a href="cvideos_admin?cvideos_admin=active">Videos</a></li>
-            <li class="<?php print $this->input->get('cplaylists_admin');?>"><a href="cplaylists_admin?cplaylists_admin=active">Playlists</a></li>
+            <li class="<?php print $this->input->get('cchanel_admin');?>"><a href="cadminf?media=c&cchanel_admin=active" >Chanel</a></li>
+            <li class="<?php print $this->input->get('cvideos_admin');?>"><a href="cadminf?media=v&cvideos_admin=active">Videos</a></li>
+            <li class="<?php print $this->input->get('cplaylists_admin');?>"><a href="cadminf?media=p&cplaylists_admin=active">Playlists</a></li>
             <li><button type="button" class="btn btn-success" id="btn-get-data" style="margin: 0 10px;">Get Data</button></li>
           </ul>
         </div>
