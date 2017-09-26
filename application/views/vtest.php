@@ -1,1 +1,5 @@
-<?php echo site_url(); ?>
+<?php 
+
+echo $array1.$array2;
+
+ ?>

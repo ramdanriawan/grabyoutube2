@@ -34,7 +34,7 @@ class Msavedb extends CI_Model
 
 	//fungsi untuk update data di database
 	function msavedbupdate($file, $table, $cond_column, $cond_data){
-		$query = $this->db->update($table, $file)->where($cond_column, $cond_data);
+		$query = $this->db->where($cond_column, $cond_data)->update($table, $file);
 
 		if ($query) {
 			return true;
@@ -45,9 +45,16 @@ class Msavedb extends CI_Model
 
 	//fungsi untuk
 	function msavedbcolumn($file, $table, $column){
-		$query = $this->db->query("INSERT INTO $table ($column) VALUES('$file')");
-
-		return $query;
+		$sql = "select link from $table where link ='$file'";
+		$query = $this->db->query($sql);
+		
+		if ($this->mcheckduplicaterowf($sql)) {
+			$sql = "INSERT INTO $table ($column) VALUES('$file')";
+			$query = $this->db->query($sql);
+			return $query;
+		}else {
+			return false;
+		}
 	}
 }
  ?>

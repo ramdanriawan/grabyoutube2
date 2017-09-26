@@ -8,28 +8,12 @@
  	
  	function index()
  	{
- 		$config = array(
- 			"protocol" => "smtp",
- 			"smtp_host" => "ssl://smtp.googlemail.com",
- 			"smtp_port" => 465,
- 			"smtp_user" => "ramdanriawan3@gmail.com",
- 			"smtp_pass" => "M@utauaja982",
- 			"mailtype" =>"html",
- 			"charset" => "ISO-8859-1",
- 			"WORDWRAP" => TRUE,
- 		);
+ 		$array1 = "data1";
+ 		$array2 = "data2";
 
- 		$this->load->library("email", $config);
+ 		$data["array1"] = $array1;
+ 		$data["array2"] = $array2;
 
- 		$this->email->from("ramdanriawan3@gmail.com");
- 		$this->email->to("ramdanriawan4@gmail.com");
- 		$this->email->subject("email pertama");
- 		$this->email->message("hallo");
-
- 		if($this->email->send()){
- 			print "success";
- 		}else{
- 			print $this->email->print_debugger();
- 		}
+ 		$this->load->view("vtest", $data);
  	}
  } ?>

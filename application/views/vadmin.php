@@ -28,8 +28,8 @@
 		    <tbody>
 					<?php 
 						$a = 0;
-						foreach ($hasil["data"] as $key => $value) if($a <= $hasil["limit"]) {
-							print "<tr><td>$value->id</td><td>$value->chanel</td> <td>$value->name</td> <td>$value->gambar</td><td>$value->judul</td><td>$value->link</td><td>$value->time</td>  <td><a href='http://localhost/index.php/Cadmin/cedit_admin?media=v&action=edit&id=$value->id'>Edit</a> | <a href='http://localhost/index.php/Cadmin/cadmin_edit?media=v&action=delete&id=$value->id'>Delete</a></td></tr>";
+						foreach ($hasil["data"] as $key => $value) if($a++ <= $hasil["limit"]) {
+							print "<tr><td>$value->id</td><td>$value->chanel</td> <td>$value->name</td> <td>$value->gambar</td><td>$value->judul</td><td>$value->link</td><td>$value->time</td>  <td><a href='http://localhost/index.php/Cadmin/cedit_admin?media=v&action=edit&id=$value->id'>Edit</a> | <a class='delete' href='http://localhost/index.php/Cadmin/cedit_admin?media=v&action=delete&id=$value->id' data-id='$value->id' data-media='videos'>Delete</a></td></tr>";
 						}
 					?>
 		      <tr>
@@ -96,9 +96,9 @@
           <!--  munculin datanya dalam baris table -->
           <?php 
             $a = 0;
-            foreach ($hasil["data"] as $key => $value) if ($a <= $hasil["limit"]) {
+            foreach ($hasil["data"] as $key => $value) if ($a++ <= $hasil["limit"]) {
               print "<tr>
-              <td>$value->id</td><td>$value->link</td> <td>$value->logo</td> <td>$value->name</td> <td>$value->subscriber</td> <td>$value->videos</td> <td>$value->playlists</td> <td><a href='http://localhost/index.php/Cadmin/cedit_admin?media=c&action=edit&id=$value->id'>Edit</a> | <a href='http://localhost/index.php/Cadmin/cedit_admin?media=c&action=delete&id=$value->id'>Delete</a></td></tr>";
+              <td>$value->id</td><td>$value->link</td> <td>$value->logo</td> <td>$value->name</td> <td>$value->subscriber</td> <td>$value->videos</td> <td>$value->playlists</td> <td><a href='http://localhost/index.php/Cadmin/cedit_admin?media=c&action=edit&id=$value->id'>Edit</a> | <a class='delete' href='http://localhost/index.php/Cadmin/cedit_admin?media=c&action=delete&id=$value->id' data-id='$value->id' data-media='chanel'>Delete</a></td></tr>";
             }
             
           ?>
@@ -124,7 +124,6 @@
 	
 	<!-- jika request get adalah playlists -->
 	<?php if($this->input->get("media") == "p"): ?>
-  <!-- row 2 -->
   <div class="row">
     <div class='table-responsive'>
       <table class='table table-striped table-bordered table-hover table-condensed'>
@@ -144,9 +143,8 @@
           <!--  munculin datanya dalam baris table -->
           <?php 
             $a = 0;
-            foreach ($hasil["data"] as $key => $value) if ($a <= $hasil["limit"]) {
-              print "<tr>
-              <td>$value->id</td><td>$value->chanel</td> <td>$value->name</td> <td>$value->gambar</td> <td>$value->judul</td> <td>$value->link</td> <td>$value->total_videos</td> <td><a href='http://localhost/index.php/Cadmin/cedit_admin?media=p&action=edit&id=$value->id'>Edit</a> | <a href='http://localhost/index.php/Cadmin/cedit_admin?media=c&action=delete&id=$value->id'>Delete</a></td></tr>";
+            foreach ($hasil["data"] as $key => $value) if ($a++ <= $hasil["limit"]) {
+              print "<tr><td>$value->id</td><td>$value->chanel</td> <td>$value->name</td> <td>$value->gambar</td> <td>$value->judul</td> <td>$value->link</td> <td>$value->total_videos</td> <td><a href='http://localhost/index.php/Cadmin/cedit_admin?media=p&action=edit&id=$value->id'>Edit</a> | <a class='delete' href='http://localhost/index.php/Cadmin/cedit_admin?media=p&action=delete&id=$value->id' data-id='$value->id' data-media='playlists'>Delete</a></td></tr>";
             }
             
           ?>

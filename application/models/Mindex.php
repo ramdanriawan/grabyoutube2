@@ -66,7 +66,7 @@ class Mindex extends CI_Model
   //fungsi untuk menampilkan semua data
   function show($table, $column_order, $order_by, $start, $limit)
   {
-    $sql = "select * from $table order by $column_order $order_by LIMIT $start,$limit";
+    $sql = "select * from $table order by  $order_by $column_order LIMIT $start,$limit";
     $query = $this->db->query($sql);
 
     return $query;

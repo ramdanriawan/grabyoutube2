@@ -2,15 +2,7 @@
 //require library
 require_once("phpQuery/phpQuery/phpQuery.php");
 
-//cek dengan kondisi if jika terdapat permintaan update manual atau tidak
-if(strtolower($this->input->get("update")) == "active"){
-	$chanel[] = $this->input->get("update");
-}else {
-	//lakukan foreach untuk mangambil data linknya saja
-	foreach ($hasil["data"] as $key => $value) {
-		$chanel[] = $value->link;
-	}
-}
+//echo file_get_contents("https://www.youtube.com/channel/UCpSPS5yLCxYRuZSrCx-eBjA");
 
 //fungsi untuk mendapatkan informasi chanel
 function chanelinfo($chanel){
@@ -20,7 +12,6 @@ function chanelinfo($chanel){
 	//data chanel 
 	$dom = phpQuery::newDocument($get);
 	$list = pq(".branded-page-v2-header.channel-header.yt-card");
-	$chanel = $chanel;
 	$logo = $list->find(".channel-header-profile-image");
 	$name = $list->find(".spf-link.branded-page-header-title-link.yt-uix-sessionlink");
 	$subscriber = $list->find(".yt-subscription-button-subscriber-count-branded-horizontal.subscribed.yt-uix-tooltip");
@@ -90,7 +81,7 @@ function grabyoutubevideos($chanel){
 		$data_get = "http://localhost/index.php/Csavedb/csavedbf?media=v&" . $data;
 
 		//tampilkan data hasil dari request ajax
-		echo "status: " . file_get_contents($data_get);
+		//echo "status: " . file_get_contents($data_get);
 
 		echo " " . $data_get;
 	 //
@@ -133,7 +124,7 @@ function grabyoutubeplaylists($chanel){
 		$data_get = "http://localhost/index.php/Csavedb/csavedbf?media=p&" . $data;
 
 		//tampilkan data hasil dari request ajax
-		echo "status: " . file_get_contents($data_get);
+		//echo "status: " . file_get_contents($data_get);
 
 		echo " " . $data_get;
 	 //
@@ -141,14 +132,14 @@ function grabyoutubeplaylists($chanel){
 }
 
 //lakukan foreach untuk setiap data url
-foreach ($chanel as $key => $value) {
+foreach ($hasil["data"] as $key => $value) {
 	//panggil dan oper nilai url dari masing masing chanel
 
-	chanelinfo($value);
-	 grabyoutubevideos($value);
-	 grabyoutubeplaylists($value);
+	  chanelinfo($value->link);
+	  grabyoutubevideos($value->link);
+	  grabyoutubeplaylists($value->link);
 
 	print "<p> ==================== end chanel ke-$key ====================";
 }
-
+print_r($hasil);
 ?>

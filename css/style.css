@@ -23,9 +23,55 @@ margin: 0 10px;
 margin: 15px;
 }
 
+form#form-edit {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+form#form-edit>input {
+    margin-top: 10px;
+}
+
 @media screen and (max-width: 480px) {
 	#menu_header{
 		margin-top: 10px;
 	}	
 }
 
+#sidebar{
+	position: fixed;
+	top: 60px;
+	left: 0;
+	background-color: #444;
+	color: white;
+	border-radius: 0 0 25px 0;
+	width: 250px;
+	height: 100vh;
+	border-top: 5px solid #111;
+	display: none;
+	z-index: 1;
+}
+
+#sidebar ul li.header{
+	background-origin: #222;
+	font-weight: bold;
+	letter-spacing: 2px;
+	margin: 10px;
+	text-align: center;
+	padding: 5px;
+	list-style-type: none;
+}
+
+#sidebar ul li:not(.header){
+	border-bottom: 1px solid grey;
+}
+
+#container-body{
+	background-color: gray;
+	padding: 10px;
+	margin: 
+}
+
+#container-form{
+	margin: 20px 0;
+}
