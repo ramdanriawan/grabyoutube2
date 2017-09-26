@@ -45,9 +45,16 @@ class Msavedb extends CI_Model
 
 	//fungsi untuk
 	function msavedbcolumn($file, $table, $column){
-		$query = $this->db->query("INSERT INTO $table ($column) VALUES('$file')");
-
-		return $query;
+		$sql = "select link from $table where link ='$file'";
+		$query = $this->db->query($sql);
+		
+		if ($this->mcheckduplicaterowf($sql)) {
+			$sql = "INSERT INTO $table ($column) VALUES('$file')";
+			$query = $this->db->query($sql);
+			return $query;
+		}else {
+			return false;
+		}
 	}
 }
  ?>

@@ -1,13 +1,12 @@
 <?php 
 $array = [
   "array1" => "a",
-  "array2" => "b"
+  "array2" => "b",
+  "array3" => "b"
 ];
 
 $a = 2;
 
-foreach ($array as $key => $value) if($a++ <= count($array)) {
-  echo $key;
-}
+echo http_build_query($array, "", "x");
 
  ?>

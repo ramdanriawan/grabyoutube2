@@ -1,3 +1,25 @@
+<?php
+ if($this->input->get("action") == "delete"){
+	 if($this->input->get("media") == "c"){
+		 $table = "chanel";
+	 }elseif($this->input->get("media") == "v"){
+		 $table = "videos";
+	 }elseif($this->input->get("media") == "p"){
+		 $table = "playlists";
+	 }
+	 $id = (int) $this->input->get("id");
+	 $sql = "delete from $table where id=$id";
+	 $hasil = $this->db->query($sql);
+	 if($hasil){
+			echo "success";
+	 }else {
+	 	echo "false";
+	 }
+	 
+	 die("");
+ }
+ 
+ ?>
 <?php include 'header_admin.php'; ?>
 
 <div class="container">
@@ -6,7 +28,7 @@
 		<div class="col-xs-12">
 			<!-- script jika yang di edit adalah chanel -->
 			<?php if($this->input->get("media") == "c" && $this->input->get("action") == "edit"): foreach($hasil["data"] as $key => $value): ?>
-				<form class="form" action="" method="post">
+				<form id="form-edit" class="form" action="" method="post">
 					<input class="form-control" type="text" name="link" value="<?php echo $value->link; ?>">
 					<input class="form-control" type="text" name="logo" value="<?php echo $value->logo; ?>">
 					<input class="form-control" type="text" name="name" value="<?php echo $value->name; ?>">
@@ -19,7 +41,7 @@
 			
 			<!-- script jika yang di edit adalah videos -->
 			<?php  elseif($this->input->get("media") == "v" && $this->input->get("action") == "edit"): foreach($hasil["data"] as $key => $value): ?>
-				<form action="" method="post">
+				<form id="form-edit" action="" method="post">
 					<input class="form-control" type="text" name="chanel" value="<?php echo $value->chanel; ?>">
 					<input class="form-control" type="text" name="name" value="<?php echo $value->name; ?>">
 					<input class="form-control" type="text" name="gambar" value="<?php echo $value->gambar; ?>">
@@ -32,7 +54,7 @@
 			
 			<!-- script jika yang diedti adalah playlists -->
 			<?php  elseif($this->input->get("media") == "p" && $this->input->get("action") == "edit"): foreach($hasil["data"] as $key => $value): ?>
-				<form action="" method="post">
+				<form id="form-edit" action="" method="post">
 					<input type="text" class="form-control" name="chanel" value="<?php echo $value->chanel ?>">
 					<input type="text" class="form-control" name="gambar" value="<?php echo $value->gambar ?>">
 					<input type="text" class="form-control" name="judul" value="<?php echo $value->judul ?>">
@@ -43,7 +65,7 @@
 			<?php  endforeach; ?>
 			
 			<!-- script jika data row kosong -->
-		<?php else: ?>
+			<?php else: ?>
 				<h1>Media Tidak Tersedia</h1>
 			<?php endif; ?>
 			

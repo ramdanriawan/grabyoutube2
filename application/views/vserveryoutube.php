@@ -2,15 +2,12 @@
 //require library
 require_once("phpQuery/phpQuery/phpQuery.php");
 
-//cek dengan kondisi if jika terdapat permintaan update manual atau tidak
-if(strtolower($this->input->get("update")) == "active"){
-	$chanel[] = $this->input->get("update");
-}else {
 	//lakukan foreach untuk mangambil data linknya saja
 	foreach ($hasil["data"] as $key => $value) {
 		$chanel[] = $value->link;
 	}
-}
+	print_r($hasil);
+
 
 //fungsi untuk mendapatkan informasi chanel
 function chanelinfo($chanel){
@@ -42,10 +39,10 @@ function chanelinfo($chanel){
 	print_r($data);
 
 	//jadikan data sebagai query
-	$data = http_build_query($data, "", "&");
+	$data_form = http_build_query($data, "", "&");
 
 	//gabungkan url save db chanel dengan field
-	$data_get = "http://localhost/index.php/Csavedb/csavedbf?media=c&" . $data;
+	$data_get = "http://localhost/index.php/Csavedb/csavedbf?media=c&" . $data_fom;
 
 	//tampilkan data hasil dari request ajax
 		echo "status: " . file_get_contents($data_get);

@@ -23,6 +23,15 @@ margin: 0 10px;
 margin: 15px;
 }
 
+form#form-edit {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+form#form-edit>input {
+    margin-top: 10px;
+}
+
 @media screen and (max-width: 480px) {
 	#menu_header{
 		margin-top: 10px;
