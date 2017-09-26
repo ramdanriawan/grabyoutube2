@@ -53,7 +53,7 @@ class Mindex extends CI_Model
 
   //fungsi untuk mereturn link url paging dan jumlah paging beserta limit yang sudah di ambil di database
   function paging($page, $limit, $jumlah_paging){
-    $link = [];
+    $link = array();
     //perulangan untuk menentukan link dan jumlah link
     for ($i=1; $i < $jumlah_paging; $i++) {
       $link[$i]        = "$i/$limit";

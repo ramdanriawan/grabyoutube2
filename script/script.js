@@ -3,7 +3,7 @@ $(document).ready(function() {
   
   tambah_chanel.submit(function(event) {
     event.preventDefault();
-    var This = $(This);
+    var This = $(this);
     This.css('background-color', 'red');
     
     var data = $(This).serialize();

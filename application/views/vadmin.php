@@ -48,7 +48,7 @@
           <!-- script untuk membuat paging -->
           <?php 
             for ($i=1; $i <= $hasil["page_total"]; $i++) { 
-              print "<li><a href=?page=$i&limit=$hasil[limit]>$i</a></li>";
+              print "<li><a href=http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$hasil[limit]>$i</a></li>";
             }
           ?>
         </ul>
@@ -113,7 +113,7 @@
           <!-- script untuk membuat paging -->
           <?php 
             for ($i=1; $i <= $hasil["page_total"]; $i++) { 
-              print "<li><a href=?page=$i&limit=$hasil[limit]>$i</a></li>";
+              print "<li><a href=http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$hasil[limit]>$i</a></li>";
             }
           ?>
         </ul>
@@ -124,24 +124,6 @@
 	
 	<!-- jika request get adalah playlists -->
 	<?php if($this->input->get("media") == "p"): ?>
-		<!--  row 1 -->
-  <div class="row">
-    <!--  tulisan list chanel -->
-    <div class="col-xs-6 pull-left">
-      <span><h1>List Chanel</h1></span>
-    </div>
-    
-    <!-- untuk form menambah url admin -->
-    <div class="col-xs-6 pull-right">
-      <form id="tambah_chanel" class="form-inline pull-right">
-        <input class="form-control" type="search" name="file" placeholder="Url chanel, EX: https://www.youtube.com/channel/UCpSPS5yLCxYRuZSrCx-eBjA">
-        <input type="hidden" name="table" value="chanel">
-        <input type="hidden" name="column" value="link">
-        <input class="form-control btn btn-primary" type="submit" value="+Add">
-      </form>
-    </div>
-  </div>
-  
   <!-- row 2 -->
   <div class="row">
     <div class='table-responsive'>
@@ -179,7 +161,7 @@
           <!-- script untuk membuat paging -->
           <?php 
             for ($i=1; $i <= $hasil["page_total"]; $i++) { 
-              print "<li><a href=?page=$i&limit=$hasil[limit]>$i</a></li>";
+              print "<li><a href=http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$hasil[limit]>$i</a></li>";
             }
           ?>
         </ul>
