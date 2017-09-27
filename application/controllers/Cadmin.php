@@ -74,4 +74,8 @@
     
     $this->load->view("vedit_admin", $data);
   }
+
+  function clogin(){
+    $this->load->view("vlogin");
+  }
  } ?>

@@ -35,9 +35,16 @@
 
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
+			<ul class="pagination">
+			<li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
 			<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
-				<a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]";?>"><?php echo $i; ?></a>
+			<?php if($i == $index["page"]){$active = "active";}else{$active = "";} ?>
+				<li class="<?php echo $active; ?>">
+					<a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]&active=active";?>"><?php echo $i; ?></a>
+				</li>
 			<?php endfor; ?>
+			<li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$index[page_total], $index[data_total] data"; ?></a></li>
+			</ul>
 		</div>
 	</div>
 	<?php endif; ?>
@@ -62,9 +69,16 @@
 	
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
-				<a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]";?>"><?php echo $i; ?></a>
-			<?php endfor; ?>
+			<ul class="pagination">
+				<li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+				<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
+				<?php if($i == $index["page"]){$active = "active";}else{$active = "";} ?>
+					<li class="<?php echo $active; ?>">
+						<a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]&active=active";?>"><?php echo $i; ?></a>
+					</li>
+				<?php endfor; ?>
+				<li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$index[page_total], $index[data_total] data"; ?></a></li>
+			</ul>
 		</div>
 	</div>
 	<?php endif;?>
@@ -91,12 +105,14 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<ul class="pagination">
+				<li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
 				<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
-					<?php if($_GET["page"] == $index["page"]){$active = "active";}else{$active = "";} ?>
+				<?php if($i == $index["page"]){$active = "active";}else{$active = "";} ?>
 					<li class="<?php echo $active; ?>">
 						<a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]&active=active";?>"><?php echo $i; ?></a>
 					</li>
-			<?php endfor; ?>
+				<?php endfor; ?>
+				<li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$index[page_total], $index[data_total] data"; ?></a></li>
 		</ul>
 		</div>
 	</div>

@@ -94,5 +94,7 @@ var btn_get_data = $("#btn-get-data");
   chanel_toggler.click(function(){
     sidebar.toggle(300);
   })
+
+  
 })
 

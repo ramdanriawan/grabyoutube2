@@ -9,15 +9,7 @@ class Cindex extends CI_Controller
 
 	function index()
 	{
-		$this->load->model("Mselectdb");
-
-		$result = $this->Mselectdb->mselectdbf("chanel");
-		$data["hasil"] = array(
-			"data" => $result->result(),
-			"data_total" => $result->num_rows()
-		);
-
-		$this->load->view("vindex", $data);
+		header("Location: http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v");
 	}
 
 	function cindexf($table = "videos", $column_order = "id", $order_by ="asc", $start = 0, $limit = 10, $page = 1){
@@ -38,10 +30,11 @@ class Cindex extends CI_Controller
 		
 		$result = $this->Mindex->show($table, $column_order, $order_by, $start, $limit);
 		$page_total = ceil($this->db->query("select * from $table")->num_rows() / $limit);
+		$data_total = $this->db->query("select * from $table")->num_rows();
 
       	$data["index"] = array(
 	        "data"         => $result->result(),
-	        "data_total"   => $result->num_rows(),
+	        "data_total"   => $data_total,
 	        "table"        => $table,
 	        "column_order" => $column_order,
 	        "order_by"     => $order_by,
@@ -58,6 +51,10 @@ class Cindex extends CI_Controller
 			"data"		 => $result2->result(),
 			"data_total" => $result2->num_rows()
 		);
+
+		if(!isset($_GET["media"])){
+			header("Location: http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v");
+		}
 
       $this->load->view("vindex", $data);
 

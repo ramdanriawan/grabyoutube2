@@ -2,8 +2,8 @@
 
 <div class="container"  id="container-body">
 	
-	<!--  jika request get adalah videos -->
-	<?php if($this->input->get("media") == "v"): ?>
+	<!--  jika request get adalah videos dan juga default -->
+	<?php if($this->input->get("media") == "v" || !isset($_GET["media"])): ?>
 	<div class="row">
 		<div class="col-xs-6">
 			<span><h1>List Videos</h1></span>
