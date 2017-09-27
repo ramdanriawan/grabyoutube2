@@ -91,9 +91,9 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<ul class="pagination">
-				<?php if($_GET["page"] == $index["page"]){$active2 = "active";} ?>
 				<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
-					<li class="<?php echo $active2; ?>">
+					<?php if($_GET["page"] == $index["page"]){$active = "active";}else{$active = "";} ?>
+					<li class="<?php echo $active; ?>">
 						<a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]&active=active";?>"><?php echo $i; ?></a>
 					</li>
 			<?php endfor; ?>
