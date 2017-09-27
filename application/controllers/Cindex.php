@@ -20,9 +20,9 @@ class Cindex extends CI_Controller
 		$this->load->view("vindex", $data);
 	}
 
-	function cindexf($table = "videos", $column_order = "asc", $order_by ="id", $start = 0, $limit = 10, $page = 1){
+	function cindexf($table = "videos", $column_order = "id", $order_by ="asc", $start = 0, $limit = 10, $page = 1){
 		$this->load->model("Mindex");
-
+		
 		if($this->input->get("media") == "c"){
 			$table = "chanel";
 		}elseif($this->input->get("media") == "v"){
@@ -33,12 +33,12 @@ class Cindex extends CI_Controller
 
 		if(isset($_GET["page"]) && isset($_GET["limit"])){
 			$start = ceil(($this->input->get("page") * $this->input->get("limit")) - $this->input->get("limit") +1);
+			 $page = $this->input->get("page");
 		}
-
+		
 		$result = $this->Mindex->show($table, $column_order, $order_by, $start, $limit);
-		$page_total = 10;
+		$page_total = ceil($this->db->query("select * from $table")->num_rows() / $limit);
 
-		  
       	$data["index"] = array(
 	        "data"         => $result->result(),
 	        "data_total"   => $result->num_rows(),

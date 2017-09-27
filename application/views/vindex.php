@@ -5,7 +5,7 @@
 		<div class="col-md-10 col-md-offset-1">
 			<form class="form-inline col-md-10 col-md-offset-1">
 				<div class="form-group row">
-				<input class="form-control" type="search" name="q" placeholder="cari video..." style="width: 700px;">
+				<input class="form-control" type="search" name="q" placeholder="cari video..." style="width: 500px;">
 				<input class="form-control btn btn-primary" type="submit" name="submit" value="cari">
 				</div>
 			</form>
@@ -14,7 +14,8 @@
 </div>
 
 <div class="container" id="container-body">
-	<?php  if($this->input->get("media") == "v"): ?>
+	<!--  jika media adalah videos atau tidak diset -->
+	<?php  if($this->input->get("media") == "v" || !isset($_GET["media"])): ?>
 	<div class="row">
 		<div class="col-md-12">
 		<?php foreach($index["data"] as $key => $value): ?>
@@ -34,13 +35,14 @@
 
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<?php for($i = 1; $i <= $index["page_total"]; $i++): ?>
-				<a href="<?php echo $i;?>"><?php echo $i; ?></a>
+			<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
+				<a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]";?>"><?php echo $i; ?></a>
 			<?php endfor; ?>
 		</div>
 	</div>
 	<?php endif; ?>
-
+	
+	<!-- jika media adalah chanel -->
 	<?php if($this->input->get("media") == "c"):?>
 	<div class="row">
 		<div class="col-md-12">
@@ -57,8 +59,17 @@
 			<?php endforeach; ?>
 		</div>
 	</div>
+	
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
+				<a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]";?>"><?php echo $i; ?></a>
+			<?php endfor; ?>
+		</div>
+	</div>
 	<?php endif;?>
-
+	
+	<!-- jika media adalah playlists -->
 	<?php if($this->input->get("media") == "p"):?>
 	<div class="row">
 		<div class="col-md-12">
@@ -74,6 +85,19 @@
 				</div>
 			</div>
 			<?php endforeach; ?>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<ul class="pagination">
+				<?php if($_GET["page"] == $index["page"]){$active2 = "active";} ?>
+				<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
+					<li class="<?php echo $active2; ?>">
+						<a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]&active=active";?>"><?php echo $i; ?></a>
+					</li>
+			<?php endfor; ?>
+		</ul>
 		</div>
 	</div>
 	<?php endif; ?>

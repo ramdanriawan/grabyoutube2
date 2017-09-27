@@ -15,6 +15,8 @@
       $table = "videos";
     }else if($this->input->get("media") == "p"){
       $table = "playlists";
+    }else {
+      $table = "videos";
     }
     
     $column_order = "id";
