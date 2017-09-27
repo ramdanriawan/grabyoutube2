@@ -1,12 +1,9 @@
 <?php 
-$array = [
-  "array1" => "a",
-  "array2" => "b",
-  "array3" => "b"
-];
+//http://localhost/index.php/Cindex/Cindexstream?media=v&v=http://youtube.com/watch?v=v73eFFdpdgE
 
-$a = 2;
+function __(){
+	echo "oke";
+}
 
-echo http_build_query($array, "", "x");
 
  ?>

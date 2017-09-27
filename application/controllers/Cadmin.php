@@ -33,11 +33,12 @@
     }
     
     $hasil        = $this->Mindex->show($table, $column_order, $order_by, $start, $limit);
-    $page_total = ceil($hasil->num_rows() / $limit);
+    $data_total = $this->db->query("select * from $table");
+    $page_total = ceil($data_total->num_rows() / $limit);
     
       $data["hasil"] = array(
         "data"         => $hasil->result(),
-        "data_total"   => $hasil->num_rows(),
+        "data_total"   => $data_total->num_rows(),
         "table"        => $table,
         "column_order" => $column_order,
         "order_by"     => $order_by,

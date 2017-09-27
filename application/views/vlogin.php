@@ -1,5 +1,13 @@
-<?php if(isset($_COOKIE["username"])){header("Location: http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf");} ?>
-<?php if(isset($_GET["authentication"]) && !isset($_COOKIE["username"])){echo "<script>alert('Harap Login Dulu!');</script>";} ?>
+<?php error_reporting(0);
+if($_GET["authentication"] == "false" && !isset($_COOKIE["username"])){
+		echo "<script>alert('Harap Login Dulu!');</script>";
+	}elseif($_GET["authentication"] == "false" && isset($_COOKIE["username"])){
+		setcookie("username", "", time() -1, "/");
+		header("Location: http://$_SERVER[SERVER_NAME]/index.php/Cadmin/clogin");
+	}else if(!isset($_GET["authentication"]) && isset($_COOKIE["username"])){
+		header("Location: http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf");
+	}
+?>
 <?php include "header.php"; ?>
 
 <div class="container" id="container-body">
@@ -37,6 +45,7 @@
 		</div>
 	</div>
 </div>
+<?php include 'footer_admin.php'; ?>
 
 <?php 
 	if (isset($_POST["username"]) && isset($_POST["password"])) {
@@ -50,4 +59,3 @@
 		}
 	}
 ?>
-<?php include 'footer_admin.php'; ?>

@@ -23,7 +23,7 @@
 				<div class="thumbnail" style="height: 200px;">
 					<img src="<?php echo $value->gambar;?>" />
 					<div class="caption">
-						<span><a href="<?php echo $value->link ?>"><?php echo $value->judul; ?></a></span><br>
+						<span><a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/Cindexstream?media=v&v=$value->link&id=$value->id";?>" target="_blank"><?php echo $value->judul; ?></a></span><br>
 						<span><b><?php echo $value->name; ?></b></span> | 
 						<span><?php echo $value->time; ?></span>
 					</div>
@@ -58,7 +58,7 @@
 				<div class="thumbnail" style="height: 200px;">
 					<img src="<?php echo $value->logo;?>" />
 					<div class="caption">
-						<span><a href="<?php echo $value->link ?>"><?php echo $value->name; ?></a></span><br>
+						<span><a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/Cindexstream?media=c&c=$value->link&id=$value->id";?>" target="_blank"><?php echo $value->name; ?></a></span><br>
 						<span><b><?php echo $value->subscriber; ?></b> subscriber</span>
 					</div>
 				</div>
@@ -92,7 +92,7 @@
 				<div class="thumbnail" style="height: 200px;">
 					<img src="<?php echo $value->gambar;?>" />
 					<div class="caption">
-						<span><a href="<?php echo $value->link;?>"><?php echo $value->judul; ?></a></span><br>
+						<span><a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/Cindexstream?media=p&p=$value->link&id=$value->id";?>" target="_blank"><?php echo $value->judul; ?></a></span><br>
 						<span><b><?php echo $value->total_videos; ?></b> videos</span> | 
 						<span><?php echo $value->name; ?></span>
 					</div>

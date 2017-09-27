@@ -60,5 +60,43 @@ class Cindex extends CI_Controller
 
 	}
 
+	function cindexstream(){
+		if($this->input->get("media") == "c"){
+			$table = "chanel";
+		}elseif($this->input->get("media") == "v"){
+			$table = "videos";
+		}elseif($this->input->get("media") == "p"){
+			$table = "playlists";
+		}
+
+		$result = $this->db->query("select * from $table");
+		$next_media = $this->db->query("select * from $table where id>$_GET[id] LIMIT 1");
+		$prev_media = $this->db->query("select * from $table where id<$_GET[id] LIMIT 1");
+
+		if ($next_media->num_rows() == 0) {
+			$get_next_media = false;
+		}else{
+			$get_next_media = true;
+		}
+		
+		if($prev_media->num_rows() == 0){
+			$get_prev_media = false;
+		}else{
+			$get_prev_media = true;
+		}
+
+		 $data["hasil"] = array(
+	        "data"         => $result->result(),
+	        "data_total"   => $result->num_rows(),
+	        "table"        => $table,
+	        "get_next_media" => $get_next_media,
+	        "get_prev_media" => $get_prev_media,
+	        "next_media"   => $next_media->result(),
+	        "prev_media"   => $prev_media->result()
+      	);
+
+		$this->load->view("vindexstream", $data);
+	}
+
 }
  ?>

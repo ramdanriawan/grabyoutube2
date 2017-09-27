@@ -41,19 +41,22 @@
 	</div>
 	
 	    
+    
     <!-- row paging -->
-    <div class="row">
-      <nav>
-        <ul class="pager">
-          <!-- script untuk membuat paging -->
-          <?php 
-            for ($i=1; $i <= $hasil["page_total"]; $i++) { 
-              print "<li><a href=http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$hasil[limit]>$i</a></li>";
-            }
-          ?>
-        </ul>
-      </nav>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ul class="pagination">
+        <li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+        <?php for($i = $hasil["page"]; $i <= $hasil["page"] + 10 && $i <= $hasil["page_total"]; $i++): ?>
+        <?php if($i == $hasil["page"]){$active = "active";}else{$active = "";} ?>
+          <li class="<?php echo $active; ?>">
+            <a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=v&page=$i&limit=$hasil[limit]&active=active";?>"><?php echo $i; ?></a>
+          </li>
+        <?php endfor; ?>
+        <li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$hasil[page_total], $hasil[data_total] data"; ?></a></li>
+      </ul>
     </div>
+  </div>
 		
 	<?php endif; ?>
 	
@@ -105,19 +108,21 @@
         </tbody>
       </table>
     </div>
-    
+    </div>
+     
     <!-- row paging -->
-    <div class="row">
-      <nav>
-        <ul class="pager">
-          <!-- script untuk membuat paging -->
-          <?php 
-            for ($i=1; $i <= $hasil["page_total"]; $i++) { 
-              print "<li><a href=http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$hasil[limit]>$i</a></li>";
-            }
-          ?>
-        </ul>
-      </nav>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ul class="pagination">
+        <li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+        <?php for($i = $hasil["page"]; $i <= $hasil["page"] + 10 && $i <= $hasil["page_total"]; $i++): ?>
+        <?php if($i == $hasil["page"]){$active = "active";}else{$active = "";} ?>
+          <li class="<?php echo $active; ?>">
+            <a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=c&page=$i&limit=$hasil[limit]&active=active";?>"><?php echo $i; ?></a>
+          </li>
+        <?php endfor; ?>
+        <li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$hasil[page_total], $hasil[data_total] data"; ?></a></li>
+      </ul>
     </div>
   </div>
 	<?php endif; ?>
@@ -151,19 +156,21 @@
         </tbody>
       </table>
     </div>
+  </div>
     
     <!-- row paging -->
-    <div class="row">
-      <nav>
-        <ul class="pager">
-          <!-- script untuk membuat paging -->
-          <?php 
-            for ($i=1; $i <= $hasil["page_total"]; $i++) { 
-              print "<li><a href=http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$hasil[limit]>$i</a></li>";
-            }
-          ?>
-        </ul>
-      </nav>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ul class="pagination">
+        <li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+        <?php for($i = $hasil["page"]; $i <= $hasil["page"] + 10 && $i <= $hasil["page_total"]; $i++): ?>
+        <?php if($i == $hasil["page"]){$active = "active";}else{$active = "";} ?>
+          <li class="<?php echo $active; ?>">
+            <a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=p&page=$i&limit=$hasil[limit]&active=active";?>"><?php echo $i; ?></a>
+          </li>
+        <?php endfor; ?>
+        <li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$hasil[page_total], $hasil[data_total] data"; ?></a></li>
+      </ul>
     </div>
   </div>
 	<?php endif; ?>
