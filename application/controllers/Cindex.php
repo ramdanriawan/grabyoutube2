@@ -6,6 +6,18 @@
 class Cindex extends CI_Controller
 {
 	
+	function sidebar(){
+		
+      	$this->load->model("Mselectdb");
+      	$result2 = $this->Mselectdb->mselectdbf("chanel");
+
+		$data["sidebar"] = array(
+			"data"		 => $result2->result(),
+			"data_total" => $result2->num_rows()
+		);
+
+		return $data["sidebar"];
+	}
 
 	function index()
 	{
@@ -32,6 +44,17 @@ class Cindex extends CI_Controller
 		$page_total = ceil($this->db->query("select * from $table")->num_rows() / $limit);
 		$data_total = $this->db->query("select * from $table")->num_rows();
 
+		if($this->input->get("media") == "v" && isset($_GET["c"]) && isset($_GET["videos"])){
+			$result = $this->db->query("select * from videos where chanel='$_GET[c]' order by $column_order $order_by LIMIT $start,$limit");
+		$page_total = ceil($this->db->query("select * from $table where chanel='$_GET[c]'")->num_rows() / $limit);
+		$data_total = $this->db->query("select * from $table where chanel='$_GET[c]'")->num_rows();
+		}elseif($this->input->get("media") == "p" && isset($_GET["c"]) && isset($_GET["playlists"])){
+			$result = $this->db->query("select * from playlists where chanel='$_GET[c]' order by $column_order $order_by LIMIT $start,$limit");
+		$page_total = ceil($this->db->query("select * from $table where chanel='$_GET[c]'")->num_rows() / $limit);
+		$data_total = $this->db->query("select * from $table where chanel='$_GET[c]'")->num_rows();
+		}
+
+
       	$data["index"] = array(
 	        "data"         => $result->result(),
 	        "data_total"   => $data_total,
@@ -44,13 +67,7 @@ class Cindex extends CI_Controller
 	        "start"        => $start
       	);
 
-      	$this->load->model("Mselectdb");
-      	$result2 = $this->Mselectdb->mselectdbf("chanel");
-
-		$data["sidebar"] = array(
-			"data"		 => $result2->result(),
-			"data_total" => $result2->num_rows()
-		);
+      	$data["sidebar"] = $this->sidebar();
 
 		if(!isset($_GET["media"])){
 			header("Location: http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v");
@@ -78,7 +95,7 @@ class Cindex extends CI_Controller
 		}else{
 			$get_next_media = true;
 		}
-		
+
 		if($prev_media->num_rows() == 0){
 			$get_prev_media = false;
 		}else{
@@ -94,6 +111,8 @@ class Cindex extends CI_Controller
 	        "next_media"   => $next_media->result(),
 	        "prev_media"   => $prev_media->result()
       	);
+
+		 $data["sidebar"] = $this->sidebar();
 
 		$this->load->view("vindexstream", $data);
 	}
