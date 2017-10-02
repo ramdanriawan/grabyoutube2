@@ -35,9 +35,12 @@
 
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
+			<ul  class="pagination">
+				<?php if(!isset($_GET["page"])){$_GET["page"] == "active";} ?>
 			<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
-				<a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]";?>"><?php echo $i; ?></a>
+				<li  class="<?php if($i == $_GET["page"]){echo "active";}else{echo "";} ?>"> <a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]";?>"><?php echo $i; ?></a></li>
 			<?php endfor; ?>
+			</ul>
 		</div>
 	</div>
 	<?php endif; ?>
@@ -62,9 +65,11 @@
 	
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
+			<ul  class="pagination">
 			<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
-				<a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]";?>"><?php echo $i; ?></a>
+				<li  class="<?php if($i == $_GET["page"]){echo "active";}else{echo "";} ?>"><a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]";?>"><?php echo $i; ?></a></li>
 			<?php endfor; ?>
+			</ul>
 		</div>
 	</div>
 	<?php endif;?>
@@ -92,12 +97,11 @@
 		<div class="col-md-8 col-md-offset-2">
 			<ul class="pagination">
 				<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
-					<?php if($_GET["page"] == $index["page"]){$active = "active";}else{$active = "";} ?>
-					<li class="<?php echo $active; ?>">
+					<li class="<?php if($i == $_GET["page"]){echo "active";}else{echo "";} ?>">
 						<a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]&active=active";?>"><?php echo $i; ?></a>
 					</li>
 			<?php endfor; ?>
-		</ul>
+			</ul>
 		</div>
 	</div>
 	<?php endif; ?>
