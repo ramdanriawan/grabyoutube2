@@ -1,24 +1,12 @@
+<?php 
+include './application/views/phpQuery/phpQuery/phpQuery.php';
+
+$get = file_get_contents("test2.php");
+$json = json_decode($get);
+
+echo $json->content_html;
+
+$dom = phpQuery::newDocument($json->content_html);
 
 
- <!DOCTYPE html>
- <html>
- <head>
- 	<title></title>
- 	<script src="./node_modules/jquery/dist/jquery.min.js"></script>
- </head>
- <body>
- <div id="data">
- 	
- </div>
- <script>
-$(document).ready(function(){
-	var nama = prompt("Masukkan nama kamu", "ramdan riawan");
-
-	if(nama == "gokil")
-		alert("mantap")
-	else
-		alert("mantaplah")
-})
- </script>
- </body>
- </html>
+?>
