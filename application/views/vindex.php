@@ -2,7 +2,8 @@
 <div class="container" id="container-form">
 	<div class="row" id="row-form">
 		<div class="col-md-10 col-md-offset-1">
-			<form class="form-inline col-md-10 col-md-offset-1">
+			<form id="form-search" class="form-inline col-md-12" method="get" action="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cari";?>">
+				<input type="hidden" name="media" value="v">
 				<div class="form-group row">
 				<input class="form-control" type="search" name="q" placeholder="cari video..." style="width: 500px;">
 				<input class="form-control btn btn-primary" type="submit" name="submit" value="cari">
@@ -198,7 +199,7 @@
 		<ul class="pagination">
 		<li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
 		<?php if($_GET["page"] > 1){$page = $_GET["page"] - 1;
-			echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&page=$page&limit=$index[limit]&active=active'><<< Prev</a></li>";
+			echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&c={$index[data][0]->chanel}&videos=active&page=$page&limit=$index[limit]&active=active&name=$_GET[name]'><<< Prev</a></li>";
 		}
 		?>
 		<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
@@ -214,7 +215,7 @@
 						}else {
 							$page = 2;
 						}
-					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&page=$page&limit=$index[limit]&active=active'>Next >>></a></li>";
+					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&c={$index[data][0]->chanel}&videos=active&page=$page&limit=$index[limit]&active=active&name=$_GET[name]'>Next >>></a></li>";
 				}
 				?>
 		<li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$index[page_total], $index[data_total] data"; ?></a></li>
@@ -248,7 +249,7 @@
 		<ul class="pagination">
 			<li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
 							<?php if($_GET["page"] > 1){$page = $_GET["page"] - 1;
-					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&page=$page&limit=$index[limit]&active=active'><<< Prev</a></li>";
+					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=p&c={$index["data"][0]->chanel}&playlists=active&page=$page&limit=$index[limit]&active=active&name=$_GET[name]'><<< Prev</a></li>";
 				}
 				?>
 			<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
@@ -264,7 +265,7 @@
 						}else {
 							$page = 2;
 						}
-					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&page=$page&limit=$index[limit]&active=active'>Next >>></a></li>";
+					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=p&c={$index["data"][0]->chanel}&playlists=active&page=$page&limit=$index[limit]&active=active&name=$_GET[name]'>Next >>></a></li>";
 				}
 				?>
 			<li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$index[page_total], $index[data_total] data"; ?></a></li>

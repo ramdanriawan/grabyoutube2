@@ -117,5 +117,57 @@ class Cindex extends CI_Controller
 		$this->load->view("vindexstream", $data);
 	}
 
+	function cari($table = "videos", $column_order = "id", $order_by ="asc", $start = 0, $limit = 10, $page = 1)
+	{
+		$data["sidebar"] = $this->sidebar();
+
+		if(isset($_GET["page"]) && isset($_GET["limit"])){
+			$start = ceil(($this->input->get("page") * $this->input->get("limit")) - $this->input->get("limit") +1);
+
+			 $page = $this->input->get("page");
+		}
+
+		if($this->input->get("media") == "v"){
+			// if($this->db->query("select * from videos where judul LIKE '%$_GET[q]%'")->num_rows <=  ($this->input->get("page") * $this->input->get("limit")))
+			// {
+			// 	$start = 0;
+			// }
+			$result = $this->db->query("select * from videos where judul LIKE '%$_GET[q]%' order by $column_order $order_by LIMIT $start,$limit");
+		$page_total = ceil($this->db->query("select * from videos where judul LIKE '%$_GET[q]%'")->num_rows() / $limit);
+		$data_total = $this->db->query("select * from videos where judul LIKE '%$_GET[q]%'")->num_rows();
+		}elseif($this->input->get("media") == "p"){
+			// if($this->db->query("select * from playlists where judul LIKE '%$_GET[q]%'")->num_rows <= ($this->input->get("page") * $this->input->get("limit")))
+			// {
+			// 	$start = 0;
+			// }
+
+			$result = $this->db->query("select * from playlists where judul LIKE '%$_GET[q]%' order by $column_order $order_by LIMIT $start,$limit");
+		$page_total = ceil($this->db->query("select * from playlists where judul LIKE '%$_GET[q]%'")->num_rows() / $limit);
+		$data_total = $this->db->query("select * from playlists where judul LIKE '%$_GET[q]%'")->num_rows();
+		}
+		elseif($this->input->get("media") == "c"){
+			if($this->db->query("select * from chanel where name LIKE '%$_GET[q]%'")->num_rows <= ($this->input->get("page") * $this->input->get("limit")))
+			{
+				$start = 0;
+			}
+			$result = $this->db->query("select * from chanel where name LIKE '%$_GET[q]%' order by $column_order $order_by LIMIT $start,$limit");
+		$page_total = ceil($this->db->query("select * from chanel where name LIKE '%$_GET[q]%'")->num_rows() / $limit);
+		$data_total = $this->db->query("select * from chanel where name LIKE '%$_GET[q]%'")->num_rows();
+		}
+
+		  $data["index"] = array(
+	        "data"         => $result->result(),
+	        "data_total"   => $data_total,
+	        "column_order" => $column_order,
+	        "order_by"     => $order_by,
+	        "page"         => $page,
+	        "page_total"   => $page_total,
+	        "limit"        => $limit,
+	        "start"        => $start
+      	);
+
+	   $this->load->view("vcari", $data);
+	}
+
 }
  ?>

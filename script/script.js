@@ -1,10 +1,27 @@
 $(document).ready(function() {
   var tambah_chanel = $("#tambah_chanel");
   
+// untuk loader
+
+loader = $("#loader");
+function loaderShow(){
+  loader.gSpinner({
+  scale: 0.2
+});
+}
+
+function loaderHide()
+{
+  loader.gSpinner("hide");
+}
+
+
+loaderHide();
+ 
   tambah_chanel.submit(function(event) {
     event.preventDefault();
+    loaderShow();
     var This = $(this);
-    This.css('background-color', 'red');
     
     var data = This.serialize();
     
@@ -21,6 +38,8 @@ $(document).ready(function() {
               url    : "/index.php/Csavedb/csavedbcolumn",
               data   : data,
               success: function(response){
+                loaderHide();
+
                 if(response == "success"){
                   alert("success menambah data, semua data videos dan playlists akan autoupdate setiap 10 menit, klik tombol get data untuk mendapatkan data secara manual");
                   window.location.href = window.location.href;
@@ -35,14 +54,27 @@ $(document).ready(function() {
         }
       }
       
+    }).fail(function(){
+      loaderHide();
+      alert("gagal menambah url chanel, silakan ulangi request!");
+    }).complete(function(){
+      loaderHide();
     })
   
 });
 
 var btn_get_data = $("#btn-get-data");
+modal_get_data = $("#modal-get-data");
+loader_get_data = $("#loader-get-data");
+
+modal_get_data.hide();
 
   btn_get_data.click(function(event) {
     event.preventDefault();
+
+    modal_get_data.show();
+    loader_get_data.gSpinner();
+
     var This = $(this);
     This.css("background-color", "yellow");
     
@@ -50,12 +82,18 @@ var btn_get_data = $("#btn-get-data");
       url: "http://localhost/index.php/Cserveryoutube/cserveryoutubef",
       data: {update : "active"},
       success: function(response){
+        loader_get_data.gSpinner("hide");
+        modal_get_data.hide();
         alert("Berhasil mengupdate data chanel");
         This.css('background-color');
         window.location.href = window.location.href;
       }
     }).fail(function(){
       alert("Gagal mengupdate data chanel");
+      loader_get_data.gSpinner("hide");
+    }).complete(function(){
+      loader_get_data.gSpinner("hide");
+      console.log("success");
     })
     
   });
@@ -98,6 +136,7 @@ var btn_get_data = $("#btn-get-data");
   var more_videos = $("#more_videos");
 
   more_videos.submit(function(event){
+    loaderShow();
     event.preventDefault();
 
     var data = $(this).serialize();
@@ -108,11 +147,14 @@ var btn_get_data = $("#btn-get-data");
       data :  `media=v&name=${name}&` + data,
       type: "POST",
       success: function(response){
+        loaderHide();
         alert(response);
       }
     }).fail(function(){
+      loaderHide();
       alert("Gagal mengambil response yang diberikan");
     }).complete(function(){
+      loaderHide();
       alert("berhasil menambah data videos dari response yang diberikan");
     })
   })
@@ -121,6 +163,7 @@ var btn_get_data = $("#btn-get-data");
   var more_playlists = $("#more_playlists");
 
   more_playlists.submit(function(event){
+    loaderShow();
     event.preventDefault();
 
     var data = $(this).serialize();
@@ -131,11 +174,14 @@ var btn_get_data = $("#btn-get-data");
       data: `media=p&name=${name}&` + data,
       type : "POST",
       success : function(response){
+        loaderHide();
         alert(response);
       }
     }).fail(function(){
+      loaderHide();
       alert("Gagal mengambil response yang diberikan");
     }).complete(function(){
+      loaderHide();
       alert("berhasil menambah data videos dari response yang diberikan");
     })
   })

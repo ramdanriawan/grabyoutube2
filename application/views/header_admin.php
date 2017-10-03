@@ -1,4 +1,4 @@
-<?php include "cookie.php"; ?>
+<?php include "cookie.php"; error_reporting(0); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,9 +7,11 @@
     <!--  include library js -->
     <script src="../../node_modules/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="../../node_modules/gspinner/dist/js/g-spinner.min.js"></script>
 
     <!-- include library css -->
     <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../node_modules/gspinner/dist/css/gspinner.min.css">
 
     <!--  include file js sendiri -->
     <script src="../../script/script.js" charset="utf-8"></script>
@@ -41,5 +43,15 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <div id="modal-get-data">
+    <div id="loader-get-data">
+      
+    </div>
+
+    <div class="col-md-8 col-md-offset-2" style="color: white;">
+      <h1>Harap Tunggu Sampai Request Selesai Mengupdate Data!</h1>
     </div>
   </div>

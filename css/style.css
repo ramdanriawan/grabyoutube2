@@ -43,7 +43,7 @@ form#form-edit>input {
 }
 
 #sidebar{
-	position: fixed;
+	position: absolute;
 	top: 60px;
 	left: 0;
 	background-color: #444;
@@ -90,3 +90,17 @@ thead {
     background-color: #333;
     color: white;
 }
+
+form#form-search, div#tab-cari {
+  transform: translate(150px,0px);
+}
+
+#modal-get-data
+{
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0,0,0,0.3);
+	z-index: 2;
+}
+

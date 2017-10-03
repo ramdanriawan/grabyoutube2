@@ -12,7 +12,14 @@
     
     <!-- untuk form menambah more videos -->
     <div class="col-xs-6 pull-right">
+
+
       <form id="more_videos" class="form-inline pull-right" method="">
+      <!-- loader dari gspinner -->
+      <div class="form-group">
+        <div id="loader"></div>
+      </div>
+
         <select class="form-control" name="chanel">
           <?php foreach($hasil2 as $key => $value): ?>
           <option value="<?php echo $value->link; ?>"><?php echo $value->name; ?></option>
@@ -43,7 +50,16 @@
 					<?php 
 						$a = 0;
 						foreach ($hasil["data"] as $key => $value) if($a++ <= $hasil["limit"]) {
-							print "<tr><td>$value->id</td><td>$value->chanel</td> <td>$value->name</td> <td>$value->gambar</td><td>$value->judul</td><td>$value->link</td><td>$value->time</td>  <td><a href='http://localhost/index.php/Cadmin/cedit_admin?media=v&action=edit&id=$value->id'>Edit</a> | <a class='delete' href='http://localhost/index.php/Cadmin/cedit_admin?media=v&action=delete&id=$value->id' data-id='$value->id' data-media='videos'>Delete</a></td></tr>";
+							print "<tr>
+              <td>$value->id</td>
+              <td><a href='$value->chanel' target='_blank'>Link</a></td> 
+              <td><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&c=$value->chanel&videos=active&name=$value->name' target='_blank'>$value->name</a></td> 
+              <td><a href='$value->gambar' target='_blank'>Link</a></td>
+              <td><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/Cindexstream?media=v&v=$value->link&id=$value->id' target='_blank'>$value->judul</a></td>
+              <td><a href='$value->link' target='_blank'>Link</a></td>
+              <td>$value->time</td> 
+               <td><a href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cedit_admin?media=v&action=edit&id=$value->id'>Edit</a> | <a class='delete' href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cedit_admin?media=v&action=delete&id=$value->id' data-id='$value->id' data-media='videos'>Delete</a></td>
+              </tr>";
 						}
 					?>
 		      <tr>
@@ -61,12 +77,27 @@
     <div class="col-md-8 col-md-offset-2">
       <ul class="pagination">
         <li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+        <?php if($_GET["page"] > 1 && isset($_GET["page"])){$page = $_GET["page"] - 1;
+          echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=v&page=$page&limit=$hasil[limit]&active=active'><<< Prev</a></li>";
+        }
+        ?>
+
         <?php for($i = $hasil["page"]; $i <= $hasil["page"] + 10 && $i <= $hasil["page_total"]; $i++): ?>
         <?php if($i == $hasil["page"]){$active = "active";}else{$active = "";} ?>
           <li class="<?php echo $active; ?>">
             <a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=v&page=$i&limit=$hasil[limit]&active=active";?>"><?php echo $i; ?></a>
           </li>
         <?php endfor; ?>
+          <?php if($_GET["page"] < $hasil["page_total"]){
+            if(isset($_GET["page"]))
+            {
+              $page = $_GET["page"] + 1;
+            }else {
+              $page = 2;
+            }
+          echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=v&page=$page&limit=$hasil[limit]&active=active'>Next >>></a></li>";
+        }
+        ?>
         <li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$hasil[page_total], $hasil[data_total] data"; ?></a></li>
       </ul>
     </div>
@@ -85,6 +116,11 @@
     <!-- untuk form menambah url admin -->
     <div class="col-xs-6 pull-right">
       <form id="tambah_chanel" class="form-inline pull-right">
+      <!-- loader dari gspinner -->
+      <div class="form-group">
+        <div id="loader"></div>
+      </div>
+      
         <input class="form-control" type="search" name="file" placeholder="Url chanel, EX: https://www.youtube.com/channel/UCpSPS5yLCxYRuZSrCx-eBjA">
         <input type="hidden" name="table" value="chanel">
         <input type="hidden" name="column" value="link">
@@ -115,7 +151,15 @@
             $a = 0;
             foreach ($hasil["data"] as $key => $value) if ($a++ <= $hasil["limit"]) {
               print "<tr>
-              <td>$value->id</td><td>$value->link</td> <td>$value->logo</td> <td>$value->name</td> <td>$value->subscriber</td> <td>$value->videos</td> <td>$value->playlists</td> <td><a href='http://localhost/index.php/Cadmin/cedit_admin?media=c&action=edit&id=$value->id'>Edit</a> | <a class='delete' href='http://localhost/index.php/Cadmin/cedit_admin?media=c&action=delete&id=$value->id' data-id='$value->id' data-media='chanel'>Delete</a></td></tr>";
+              <td>$value->id</td>
+              <td><a href='$value->link' target='_blank'>Link</a></td>
+               <td><a href='$value->logo' target='_blank'>Link</a></td> 
+               <td><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&c=$value->link&videos=active&name=$value->name' target='_blank'>$value->name</a></td> 
+               <td>$value->subscriber</td> 
+               <td><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&c=$value->link&videos=active&name=$value->name' target='_blank'>Link</a></td>
+               <td><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=p&c=$value->link&playlists=active&name=$value->name' target='_blank'>Link</a></td>
+                <td><a href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cedit_admin?media=c&action=edit&id=$value->id'>Edit</a> | <a class='delete' href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cedit_admin?media=c&action=delete&id=$value->id' data-id='$value->id' data-media='chanel'>Delete</a></td>
+                 </tr>";
             }
             
           ?>
@@ -129,12 +173,26 @@
     <div class="col-md-8 col-md-offset-2">
       <ul class="pagination">
         <li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+          <?php if($_GET["page"] > 1 && isset($_GET["page"])){$page = $_GET["page"] - 1;
+          echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=c&page=$page&limit=$hasil[limit]&active=active'><<< Prev</a></li>";
+        }
+        ?>
         <?php for($i = $hasil["page"]; $i <= $hasil["page"] + 10 && $i <= $hasil["page_total"]; $i++): ?>
         <?php if($i == $hasil["page"]){$active = "active";}else{$active = "";} ?>
           <li class="<?php echo $active; ?>">
             <a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=c&page=$i&limit=$hasil[limit]&active=active";?>"><?php echo $i; ?></a>
           </li>
         <?php endfor; ?>
+                  <?php if($_GET["page"] < $hasil["page_total"]){
+            if(isset($_GET["page"]))
+            {
+              $page = $_GET["page"] + 1;
+            }else {
+              $page = 2;
+            }
+          echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=c&page=$page&limit=$hasil[limit]&active=active'>Next >>></a></li>";
+        }
+        ?>
         <li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$hasil[page_total], $hasil[data_total] data"; ?></a></li>
       </ul>
     </div>
@@ -154,6 +212,11 @@
     <!-- untuk form menambah url more playlists -->
     <div class="col-xs-6 pull-right">
       <form id="more_playlists" class="form-inline pull-right">
+      <!-- loader dari gspinner -->
+      <div class="form-group">
+        <div id="loader"></div>
+      </div>
+      
         <select class="form-control" name="chanel">
           <?php foreach($hasil2 as $key => $value): ?>
           <option value="<?php echo $value->link; ?>"><?php echo $value->name; ?></option>
@@ -185,7 +248,15 @@
           <?php 
             $a = 0;
             foreach ($hasil["data"] as $key => $value) if ($a++ <= $hasil["limit"]) {
-              print "<tr><td>$value->id</td><td>$value->chanel</td> <td>$value->name</td> <td>$value->gambar</td> <td>$value->judul</td> <td>$value->link</td> <td>$value->total_videos</td> <td><a href='http://localhost/index.php/Cadmin/cedit_admin?media=p&action=edit&id=$value->id'>Edit</a> | <a class='delete' href='http://localhost/index.php/Cadmin/cedit_admin?media=p&action=delete&id=$value->id' data-id='$value->id' data-media='playlists'>Delete</a></td></tr>";
+              print "<tr>
+              <td>$value->id</td>
+              <td><a href='$value->chanel' target='_blank'>Link</a></td> 
+              <td><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=p&c=$value->chanel&playlists=active&name=$value->name' target='_blank'>$value->name</a></td> 
+              <td><a href='$value->gambar' target='_blank'>Link</a></td>
+              <td><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/Cindexstream?media=p&p=$value->link&id=$value->id' target='_blank'>$value->judul</a></td> 
+              <td><a href='$value->link' target='_blank'>Link</a></td> 
+              <td>$value->total_videos</td>
+              <td><a href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cedit_admin?media=p&action=edit&id=$value->id'>Edit</a> | <a class='delete' href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cedit_admin?media=p&action=delete&id=$value->id' data-id='$value->id' data-media='playlists'>Delete</a></td></tr>";
             }
             
           ?>
@@ -199,12 +270,26 @@
     <div class="col-md-8 col-md-offset-2">
       <ul class="pagination">
         <li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+        <?php if($_GET["page"] > 1 && isset($_GET["page"])){$page = $_GET["page"] - 1;
+          echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=p&page=$page&limit=$hasil[limit]&active=active'><<< Prev</a></li>";
+        }
+        ?>
         <?php for($i = $hasil["page"]; $i <= $hasil["page"] + 10 && $i <= $hasil["page_total"]; $i++): ?>
         <?php if($i == $hasil["page"]){$active = "active";}else{$active = "";} ?>
           <li class="<?php echo $active; ?>">
             <a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=p&page=$i&limit=$hasil[limit]&active=active";?>"><?php echo $i; ?></a>
           </li>
         <?php endfor; ?>
+          <?php if($_GET["page"] < $hasil["page_total"]){
+            if(isset($_GET["page"]))
+            {
+              $page = $_GET["page"] + 1;
+            }else {
+              $page = 2;
+            }
+          echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=p&page=$page&limit=$hasil[limit]&active=active'>Next >>></a></li>";
+        }
+        ?>
         <li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$hasil[page_total], $hasil[data_total] data"; ?></a></li>
       </ul>
     </div>
