@@ -1,10 +1,20 @@
 $(document).ready(function() {
+
+  var chanel_toggler = $("#chanel_toggler");
+  var sidebar = $("#sidebar");
+
+  chanel_toggler.click(function(){
+    sidebar.toggle(300);
+  })
+
+  
   var tambah_chanel = $("#tambah_chanel");
   
 // untuk loader
 
 loader = $("#loader");
 function loaderShow(){
+  var loader = $("#loader");
   loader.gSpinner({
   scale: 0.2
 });
@@ -12,6 +22,7 @@ function loaderShow(){
 
 function loaderHide()
 {
+  var loader = $("#loader");
   loader.gSpinner("hide");
 }
 
@@ -126,12 +137,6 @@ modal_get_data.hide();
     
   })
 
-  var chanel_toggler = $("#chanel_toggler");
-  var sidebar = $("#sidebar");
-
-  chanel_toggler.click(function(){
-    sidebar.toggle(300);
-  })
 
   var more_videos = $("#more_videos");
 
