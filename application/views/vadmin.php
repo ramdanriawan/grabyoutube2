@@ -2,12 +2,26 @@
 
 <div class="container"  id="container-body">
 	
-	<!--  jika request get adalah videos -->
-	<?php if($this->input->get("media") == "v"): ?>
-	<div class="row">
-		<div class="col-xs-6">
-			<span><h1>List Videos</h1></span>
-		</div>
+	<!--  jika request get adalah videos dan juga default -->
+	<?php if($this->input->get("media") == "v" || !isset($_GET["media"])): ?>
+  <?php $query2 = $this->db->query("select link,name from chanel"); $hasil2 = $query2->result(); ?>
+  <div class="row">
+    <div class="col-xs-6">
+      <span><h1>List Videos</h1></span>
+    </div>
+    
+    <!-- untuk form menambah more videos -->
+    <div class="col-xs-6 pull-right">
+      <form id="more_videos" class="form-inline pull-right" method="">
+        <select class="form-control" name="chanel">
+          <?php foreach($hasil2 as $key => $value): ?>
+          <option value="<?php echo $value->link; ?>"><?php echo $value->name; ?></option>
+          <?php endforeach; ?>
+        </select>
+        <input class="form-control" type="search" name="file" placeholder="Response dari more videos">
+        <input class="form-control btn btn-primary" type="submit" value="+Add">
+      </form>
+    </div>
 	</div>
 	
 	<div class="row">
@@ -41,19 +55,22 @@
 	</div>
 	
 	    
+    
     <!-- row paging -->
-    <div class="row">
-      <nav>
-        <ul class="pager">
-          <!-- script untuk membuat paging -->
-          <?php 
-            for ($i=1; $i <= $hasil["page_total"]; $i++) { 
-              print "<li><a href=http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$hasil[limit]>$i</a></li>";
-            }
-          ?>
-        </ul>
-      </nav>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ul class="pagination">
+        <li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+        <?php for($i = $hasil["page"]; $i <= $hasil["page"] + 10 && $i <= $hasil["page_total"]; $i++): ?>
+        <?php if($i == $hasil["page"]){$active = "active";}else{$active = "";} ?>
+          <li class="<?php echo $active; ?>">
+            <a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=v&page=$i&limit=$hasil[limit]&active=active";?>"><?php echo $i; ?></a>
+          </li>
+        <?php endfor; ?>
+        <li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$hasil[page_total], $hasil[data_total] data"; ?></a></li>
+      </ul>
     </div>
+  </div>
 		
 	<?php endif; ?>
 	
@@ -105,25 +122,49 @@
         </tbody>
       </table>
     </div>
-    
+    </div>
+     
     <!-- row paging -->
-    <div class="row">
-      <nav>
-        <ul class="pager">
-          <!-- script untuk membuat paging -->
-          <?php 
-            for ($i=1; $i <= $hasil["page_total"]; $i++) { 
-              print "<li><a href=http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$hasil[limit]>$i</a></li>";
-            }
-          ?>
-        </ul>
-      </nav>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ul class="pagination">
+        <li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+        <?php for($i = $hasil["page"]; $i <= $hasil["page"] + 10 && $i <= $hasil["page_total"]; $i++): ?>
+        <?php if($i == $hasil["page"]){$active = "active";}else{$active = "";} ?>
+          <li class="<?php echo $active; ?>">
+            <a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=c&page=$i&limit=$hasil[limit]&active=active";?>"><?php echo $i; ?></a>
+          </li>
+        <?php endfor; ?>
+        <li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$hasil[page_total], $hasil[data_total] data"; ?></a></li>
+      </ul>
     </div>
   </div>
 	<?php endif; ?>
 	
 	<!-- jika request get adalah playlists -->
 	<?php if($this->input->get("media") == "p"): ?>
+  <?php $query2 = $this->db->query("select link,name from chanel"); $hasil2 = $query2->result(); ?>
+
+  <div class="row">
+    <!--  tulisan list chanel -->
+    <div class="col-xs-6 pull-left">
+      <span><h1>List Playlists</h1></span>
+    </div>
+    
+    <!-- untuk form menambah url more playlists -->
+    <div class="col-xs-6 pull-right">
+      <form id="more_playlists" class="form-inline pull-right">
+        <select class="form-control" name="chanel">
+          <?php foreach($hasil2 as $key => $value): ?>
+          <option value="<?php echo $value->link; ?>"><?php echo $value->name; ?></option>
+          <?php endforeach; ?>
+        </select>
+        <input class="form-control" type="search" name="file" placeholder="Response dari more playlists">
+        <input class="form-control btn btn-primary" type="submit" value="+Add">
+      </form>
+    </div>
+  </div>
+
   <div class="row">
     <div class='table-responsive'>
       <table class='table table-striped table-bordered table-hover table-condensed'>
@@ -151,19 +192,21 @@
         </tbody>
       </table>
     </div>
+  </div>
     
     <!-- row paging -->
-    <div class="row">
-      <nav>
-        <ul class="pager">
-          <!-- script untuk membuat paging -->
-          <?php 
-            for ($i=1; $i <= $hasil["page_total"]; $i++) { 
-              print "<li><a href=http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$hasil[limit]>$i</a></li>";
-            }
-          ?>
-        </ul>
-      </nav>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <ul class="pagination">
+        <li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+        <?php for($i = $hasil["page"]; $i <= $hasil["page"] + 10 && $i <= $hasil["page_total"]; $i++): ?>
+        <?php if($i == $hasil["page"]){$active = "active";}else{$active = "";} ?>
+          <li class="<?php echo $active; ?>">
+            <a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cadminf?media=p&page=$i&limit=$hasil[limit]&active=active";?>"><?php echo $i; ?></a>
+          </li>
+        <?php endfor; ?>
+        <li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$hasil[page_total], $hasil[data_total] data"; ?></a></li>
+      </ul>
     </div>
   </div>
 	<?php endif; ?>

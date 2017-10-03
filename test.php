@@ -1,12 +1,12 @@
 <?php 
-$array = [
-  "array1" => "a",
-  "array2" => "b",
-  "array3" => "b"
-];
+include './application/views/phpQuery/phpQuery/phpQuery.php';
 
-$a = 2;
+$get = file_get_contents("test2.php");
+$json = json_decode($get);
 
-echo http_build_query($array, "", "x");
+echo $json->content_html;
 
- ?>
+$dom = phpQuery::newDocument($json->content_html);
+
+
+?>

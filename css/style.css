@@ -1,3 +1,7 @@
+body{
+	background-color: #eee;
+}
+
 #container-fluid-header{
 	background-color: #333;
 	color: white;
@@ -67,11 +71,22 @@ form#form-edit>input {
 }
 
 #container-body{
-	background-color: gray;
 	padding: 10px;
 	margin: 
 }
 
 #container-form{
 	margin: 20px 0;
+}
+
+li.first_pagination, li.end_pagination{
+	background-color: #333;
+	color: white;
+	font-weight: bold;
+	letter-spacing: 2px;
+}
+
+thead {
+    background-color: #333;
+    color: white;
 }

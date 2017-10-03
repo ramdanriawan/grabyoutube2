@@ -1,5 +1,4 @@
 <?php include 'header.php'; ?>
-
 <div class="container" id="container-form">
 	<div class="row" id="row-form">
 		<div class="col-md-10 col-md-offset-1">
@@ -15,7 +14,7 @@
 
 <div class="container" id="container-body">
 	<!--  jika media adalah videos atau tidak diset -->
-	<?php  if($this->input->get("media") == "v" || !isset($_GET["media"])): ?>
+	<?php  if(($this->input->get("media") == "v" || !isset($_GET["media"])) && !isset($_GET["c"])  && $index["data_total"] > 0): ?>
 	<div class="row">
 		<div class="col-md-12">
 		<?php foreach($index["data"] as $key => $value): ?>
@@ -23,7 +22,7 @@
 				<div class="thumbnail" style="height: 200px;">
 					<img src="<?php echo $value->gambar;?>" />
 					<div class="caption">
-						<span><a href="<?php echo $value->link ?>"><?php echo $value->judul; ?></a></span><br>
+						<span><a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/Cindexstream?media=v&v=$value->link&id=$value->id";?>" target="_blank"><?php echo $value->judul; ?></a></span><br>
 						<span><b><?php echo $value->name; ?></b></span> | 
 						<span><?php echo $value->time; ?></span>
 					</div>
@@ -35,18 +34,37 @@
 
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<ul  class="pagination">
-				<?php if(!isset($_GET["page"])){$_GET["page"] == "active";} ?>
+
+			<ul class="pagination">
+			<li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+				<?php if($_GET["page"] > 1){$page = $_GET["page"] - 1;
+					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&page=$page&limit=$index[limit]&active=active'><<< Prev</a></li>";
+				}
+				?>
 			<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
-				<li  class="<?php if($i == $_GET["page"]){echo "active";}else{echo "";} ?>"> <a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]";?>"><?php echo $i; ?></a></li>
+			<?php if($i == $index["page"]){$active = "active";}else{$active = "";} ?>
+				<li class="<?php echo $active; ?>">
+					<a href="<?php echo  "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&page=$i&limit=$index[limit]&active=active";?>"><?php echo $i; ?></a>
+				</li>
 			<?php endfor; ?>
+					<?php if($_GET["page"] < $index["page_total"]){
+						if(isset($_GET["page"]))
+						{
+							$page = $_GET["page"] + 1;
+						}else {
+							$page = 2;
+						}
+					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&page=$page&limit=$index[limit]&active=active'>Next >>></a></li>";
+				}
+				?>
+			<li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$index[page_total], $index[data_total] data"; ?></a></li>
 			</ul>
 		</div>
 	</div>
 	<?php endif; ?>
 	
 	<!-- jika media adalah chanel -->
-	<?php if($this->input->get("media") == "c"):?>
+	<?php if($this->input->get("media") == "c"  && $index["data_total"] > 0 ):?>
 	<div class="row">
 		<div class="col-md-12">
 		<?php foreach($index["data"] as $key => $value): ?>
@@ -54,8 +72,18 @@
 				<div class="thumbnail" style="height: 200px;">
 					<img src="<?php echo $value->logo;?>" />
 					<div class="caption">
-						<span><a href="<?php echo $value->link ?>"><?php echo $value->name; ?></a></span><br>
-						<span><b><?php echo $value->subscriber; ?></b> subscriber</span>
+						<span><a href="<?php echo "$value->link";?>" target="_blank"><?php echo $value->name; ?></a></span><br>
+						<span>
+							<b><?php echo $value->subscriber; ?></b> Subscriber | 
+							<?php $videos_total = $this->db->query("select * from videos where chanel='$value->link'")->num_rows(); ?>
+							<a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&c=$value->link&videos=active&c=$value->link&name=$value->name"?>">
+								<b><?php echo $videos_total;?></b> Videos |
+							</a>
+							<?php $playlists_total = $this->db->query("select * from playlists where chanel='$value->link'")->num_rows(); ?>
+							<a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=p&c=$value->link&playlists=active&p=$value->link&name=$value->name"?>">
+								<b><?php echo $playlists_total;?></b> Playlists 
+							</a>
+						</span>
 					</div>
 				</div>
 			</div>
@@ -65,17 +93,37 @@
 	
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<ul  class="pagination">
-			<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
-				<li  class="<?php if($i == $_GET["page"]){echo "active";}else{echo "";} ?>"><a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]";?>"><?php echo $i; ?></a></li>
-			<?php endfor; ?>
+			<ul class="pagination">
+				
+				<li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+				<?php if($_GET["page"] > 1){
+					if(isset($_GET["page"]))
+					{
+						$page = $_GET["page"] + 1;
+					}else {
+						$page = 2;
+					}
+					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&page=$page&limit=$index[limit]&active=active'><<< Prev</a></li>";
+				}
+				?>
+				<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
+				<?php if($i == $index["page"]){$active = "active";}else{$active = "";} ?>
+					<li class="<?php echo $active; ?>">
+						<a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=c&page=$i&limit=$index[limit]&active=active";?>"><?php echo $i; ?></a>
+					</li>
+				<?php endfor; ?>
+				<?php if($_GET["page"] > 1){$page = $_GET["page"] - 1;
+					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&page=$page&limit=$index[limit]&active=active'><<< Prev</a></li>";
+				}
+				?>
+				<li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$index[page_total], $index[data_total] data"; ?></a></li>
 			</ul>
 		</div>
 	</div>
 	<?php endif;?>
 	
 	<!-- jika media adalah playlists -->
-	<?php if($this->input->get("media") == "p"):?>
+	<?php if($this->input->get("media") == "p" && $index["data_total"] > 0 && !isset($_GET["c"]) && $index["data_total"] > 0):?>
 	<div class="row">
 		<div class="col-md-12">
 		<?php foreach($index["data"] as $key => $value): ?>
@@ -83,7 +131,7 @@
 				<div class="thumbnail" style="height: 200px;">
 					<img src="<?php echo $value->gambar;?>" />
 					<div class="caption">
-						<span><a href="<?php echo $value->link;?>"><?php echo $value->judul; ?></a></span><br>
+						<span><a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/Cindexstream?media=p&p=$value->link&id=$value->id";?>" target="_blank"><?php echo $value->judul; ?></a></span><br>
 						<span><b><?php echo $value->total_videos; ?></b> videos</span> | 
 						<span><?php echo $value->name; ?></span>
 					</div>
@@ -96,16 +144,136 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<ul class="pagination">
+				<li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+				<?php if($_GET["page"] > 1){$page = $_GET["page"] - 1;
+					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=p&page=$page&limit=$index[limit]&active=active'><<< Prev</a></li>";
+				}
+				?>
 				<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
-					<li class="<?php if($i == $_GET["page"]){echo "active";}else{echo "";} ?>">
-						<a href="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]&page=$i&limit=$index[limit]&active=active";?>"><?php echo $i; ?></a>
+
+				<?php if($i == $index["page"]){$active = "active";}else{$active = "";} ?>
+					<li class="<?php echo $active; ?>">
+						<a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=p&page=$i&limit=$index[limit]&active=active";?>"><?php echo $i; ?></a>
 					</li>
-			<?php endfor; ?>
-			</ul>
+				<?php endfor; ?>
+				<?php if($_GET["page"] < $index["page_total"]){
+					if(isset($_GET["page"]))
+					{
+						$page = $_GET["page"] + 1;
+					}else {
+						$page = 2;
+					}
+					
+					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=p&page=$page&limit=$index[limit]&active=active'>Next >>></a></li>";
+				}
+				?>
+				<li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$index[page_total], $index[data_total] data"; ?></a></li>
+		</ul>
 		</div>
 	</div>
 	<?php endif; ?>
 
+	<!-- jika media adalah v dan dia ingin melihat videos -->
+	<?php if($this->input->get("media") == "v" && isset($_GET["videos"]) && isset($_GET["c"]) && $index["data_total"] > 0):?>
+	<div class="row">
+	<div class="col-md-12">
+	<h1>Data videos berdasarkan chanel <?php echo $_GET["name"]; ?></h1>
+	<?php foreach($index["data"] as $key => $value): ?>
+		<div class="col-md-3">
+			<div class="thumbnail" style="height: 200px;">
+				<img src="<?php echo $value->gambar;?>" />
+				<div class="caption">
+					<span><a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/Cindexstream?media=v&v=$value->link&id=$value->id";?>" target="_blank"><?php echo $value->judul; ?></a></span><br>
+					<span><b><?php echo $value->name; ?></b></span> | 
+					<span><?php echo $value->time; ?></span>
+				</div>
+			</div>
+		</div>
+		<?php endforeach; ?>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<ul class="pagination">
+		<li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+		<?php if($_GET["page"] > 1){$page = $_GET["page"] - 1;
+			echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&page=$page&limit=$index[limit]&active=active'><<< Prev</a></li>";
+		}
+		?>
+		<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
+		<?php if($i == $index["page"]){$active = "active";}else{$active = "";} ?>
+			<li class="<?php echo $active; ?>">
+				<a href="<?php echo  "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&c={$index["data"][0]->chanel}&videos=active&page=$i&limit=$index[limit]&active=active&name=$_GET[name]";?>"><?php echo $i; ?></a>
+			</li>
+		<?php endfor; ?>
+		<?php if($_GET["page"] < $index["page_total"]){
+						if(isset($_GET["page"]))
+						{
+							$page = $_GET["page"] + 1;
+						}else {
+							$page = 2;
+						}
+					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&page=$page&limit=$index[limit]&active=active'>Next >>></a></li>";
+				}
+				?>
+		<li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$index[page_total], $index[data_total] data"; ?></a></li>
+		</ul>
+	</div>
+</div>
+<?php endif; ?>
+
+<!-- jika media adalah playlists -->
+<?php if($this->input->get("media") == "p" && isset($_GET["playlists"]) && isset($_GET["c"]) && $index["data_total"] > 0):?>
+<div class="row">
+	<div class="col-md-12">
+	<h1>Data playlists berdasarkan chanel <?php echo $_GET["name"]; ?></h1>
+	<?php foreach($index["data"] as $key => $value): ?>
+		<div class="col-md-3">
+			<div class="thumbnail" style="height: 200px;">
+				<img src="<?php echo $value->gambar;?>" />
+				<div class="caption">
+					<span><a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/Cindexstream?media=p&p=$value->link&id=$value->id&name=$value->name";?>" target="_blank"><?php echo $value->judul; ?></a></span><br>
+					<span><b><?php echo $value->total_videos; ?></b> videos</span> | 
+					<span><?php echo $value->name; ?></span>
+				</div>
+			</div>
+		</div>
+		<?php endforeach; ?>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<ul class="pagination">
+			<li class="first_pagination"><a  style="background: #333; color: white;">Page:: </a></li>
+							<?php if($_GET["page"] > 1){$page = $_GET["page"] - 1;
+					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&page=$page&limit=$index[limit]&active=active'><<< Prev</a></li>";
+				}
+				?>
+			<?php for($i = $index["page"]; $i <= $index["page"] + 10 && $i <= $index["page_total"]; $i++): ?>
+			<?php if($i == $index["page"]){$active = "active";}else{$active = "";} ?>
+				<li class="<?php echo $active; ?>">
+					<a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=p&c={$index["data"][0]->chanel}&playlists=active&page=$i&limit=$index[limit]&active=active&name=$_GET[name]";?>"><?php echo $i; ?></a>
+				</li>
+			<?php endfor; ?>
+			<?php if($_GET["page"] < $index["page_total"]){
+						if(isset($_GET["page"]))
+						{
+							$page = $_GET["page"] + 1;
+						}else {
+							$page = 2;
+						}
+					echo "<li><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&page=$page&limit=$index[limit]&active=active'>Next >>></a></li>";
+				}
+				?>
+			<li class="end_pagination"> <a style="background: #333; color: white;">Of: <?php echo "$index[page_total], $index[data_total] data"; ?></a></li>
+	</ul>
+	</div>
+</div>
+<?php endif; ?>
+
+	
 </div>
 
 <?php include 'footer_admin.php'; ?>

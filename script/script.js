@@ -94,5 +94,51 @@ var btn_get_data = $("#btn-get-data");
   chanel_toggler.click(function(){
     sidebar.toggle(300);
   })
+
+  var more_videos = $("#more_videos");
+
+  more_videos.submit(function(event){
+    event.preventDefault();
+
+    var data = $(this).serialize();
+    var name = $(this).find("select :selected").text();
+
+    $.ajax({
+      url : "/index.php/Cmore/cmore_videos",
+      data :  `media=v&name=${name}&` + data,
+      type: "POST",
+      success: function(response){
+        alert(response);
+      }
+    }).fail(function(){
+      alert("Gagal mengambil response yang diberikan");
+    }).complete(function(){
+      alert("berhasil menambah data videos dari response yang diberikan");
+    })
+  })
+
+  //untuk more playlists
+  var more_playlists = $("#more_playlists");
+
+  more_playlists.submit(function(event){
+    event.preventDefault();
+
+    var data = $(this).serialize();
+    var name = $(this).find("select :selected").text();
+
+    $.ajax({
+      url : "/index.php/Cmore/cmore_videos",
+      data: `media=p&name=${name}&` + data,
+      type : "POST",
+      success : function(response){
+        alert(response);
+      }
+    }).fail(function(){
+      alert("Gagal mengambil response yang diberikan");
+    }).complete(function(){
+      alert("berhasil menambah data videos dari response yang diberikan");
+    })
+  })
+
 })
 
