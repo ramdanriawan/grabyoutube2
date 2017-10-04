@@ -69,11 +69,16 @@ class Cindex extends CI_Controller
 
       	$data["sidebar"] = $this->sidebar();
 
-		if(!isset($_GET["media"])){
-			header("Location: http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v");
+		if(!isset($_GET["media"]))
+		{
+			$query = $this->db->query("select * from chanel");
+			$query2 = $this->db->query("")
+		}
+		else
+		{
+	      $this->load->view("vindex", $data);
 		}
 
-      $this->load->view("vindex", $data);
 
 	}
 

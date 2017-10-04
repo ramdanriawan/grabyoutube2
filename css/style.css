@@ -52,7 +52,6 @@ form#form-edit>input {
 	width: 250px;
 	height: 100vh;
 	border-top: 5px solid #111;
-	display: none;
 	z-index: 1;
 }
 
@@ -101,6 +100,9 @@ form#form-search, div#tab-cari {
 	width: 100vw;
 	height: 100vh;
 	background-color: rgba(0,0,0,0.3);
-	z-index: 2;
+	z-index: 4;
 }
 
+#container-fluid-header{
+	z-index: 1;
+}

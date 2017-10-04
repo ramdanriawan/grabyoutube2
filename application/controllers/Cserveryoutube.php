@@ -7,14 +7,8 @@
  	
  	function cserveryoutubef()
  	{
- 		//load model untuk mengambil data dari database
- 		$this->load->model("Mselectdb");
-
- 		//$table untuk menentukan table;
- 		$table = "chanel";
-
  		//result yang di dapat dari model mselctdb
- 		$result = $this->Mselectdb->mselectdbf($table);
+ 		$result = $this->db->query("select * from chanel");
 
  		//openr melalui variabel hasil
  		$data["hasil"] = array(

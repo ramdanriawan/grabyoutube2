@@ -36,7 +36,7 @@ function chanelinfo($chanel){
 	$data = http_build_query($data, "", "&");
 
 	//gabungkan url save db chanel dengan field
-	$data_get = "http://localhost/index.php/Csavedb/csavedbf?media=c&" . $data;
+	$data_get = "http://$_SERVER[SERVER_NAME]/index.php/Csavedb/csavedbf?media=c&" . $data;
 
 	//tampilkan data hasil dari request ajax
 		echo "status: " . file_get_contents($data_get);
@@ -81,7 +81,7 @@ function grabyoutubevideos($chanel){
 		$data_get = "http://localhost/index.php/Csavedb/csavedbf?media=v&" . $data;
 
 		//tampilkan data hasil dari request ajax
-		//echo "status: " . file_get_contents($data_get);
+		echo "status: " . file_get_contents($data_get);
 
 		echo " " . $data_get;
 	 //

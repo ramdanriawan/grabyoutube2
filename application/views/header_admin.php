@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../../node_modules/gspinner/dist/css/gspinner.min.css">
 
     <!--  include file js sendiri -->
-    <script src="../../script/script.js" charset="utf-8"></script>
+    <script src="../../script/script_admin.js" charset="utf-8"></script>
 
     <!--  include file css sendiri -->
     <link rel="stylesheet" href="../../css/style.css">
