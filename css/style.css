@@ -102,5 +102,6 @@ form#form-search, div#tab-cari {
 	height: 100vh;
 	background-color: rgba(0,0,0,0.3);
 	z-index: 2;
+	display: none;
 }
 

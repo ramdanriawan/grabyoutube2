@@ -24,7 +24,7 @@ class Cindex extends CI_Controller
 		header("Location: http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v");
 	}
 
-	function cindexf($table = "videos", $column_order = "id", $order_by ="asc", $start = 0, $limit = 10, $page = 1){
+	function cindexf($table = "videos", $column_order = "id", $order_by ="desc", $start = 0, $limit = 10, $page = 1){
 		$this->load->model("Mindex");
 		
 		if($this->input->get("media") == "c"){
