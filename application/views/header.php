@@ -37,9 +37,32 @@
 
 <div id="sidebar">
 	<ul>
-		<li class="header">CHANEL (<?php echo $sidebar["data_total"];?>)</li>
+			<?php if(!isset($_GET["media"]) && $_GET["media"] != "c")
+			{
+				$media = "videos";
+			}elseif($_GET["media"] == "v" && $_GET["media"] != "c"){
+				$media = "videos";
+			}elseif($_GET["media"] == "p" && $_GET["media"] != "c"){
+				$media = "playlists";
+			}elseif($_GET["media"] == "c"){
+				$media = "chanel";
+			}else{
+				$media = "not found";
+			}?>
+
+		<li class="header"><?php echo $sidebar["data_total"];?> CHANEL (media <?php echo $media; ?>)</li>
+
 		<?php foreach($sidebar["data"] as $key => $value): ?>
-			<li><a href="<?php echo $value->link;?>"><?php echo $value->name;?></a></li>
+				<?php 
+				if($_GET["media"] == "v" || !isset($_GET["media"])){
+					$link = "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&c=$value->link&videos=active&name=$value->name";
+				}elseif($_GET["media"] == "p"){
+					$link = "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&c=$value->link&videos=active&name=$value->name";
+				}elseif($_GET["media"] == "c"){
+					$link = "$value->link";
+				}
+				 ?>
+			<li><a href="<?php echo $link;?>" target="_blank"><?php echo $value->name;?></a></li>
 		<?php endforeach; ?>
 	</ul>
 </div>

@@ -106,3 +106,17 @@ form#form-search, div#tab-cari {
 #container-fluid-header{
 	z-index: 1;
 }
+
+div#selengkapnya {
+    text-align: center;
+    padding: 60px;
+}
+
+div#lihat_semua_chanel{
+	background-color: #333;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	letter-spacing: 2px;
+	padding: 10px;
+}

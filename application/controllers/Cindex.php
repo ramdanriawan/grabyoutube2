@@ -21,7 +21,7 @@ class Cindex extends CI_Controller
 
 	function index()
 	{
-		header("Location: http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v");
+		header("Location: http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf");
 	}
 
 	function cindexf($table = "videos", $column_order = "id", $order_by ="asc", $start = 0, $limit = 10, $page = 1){
@@ -71,8 +71,17 @@ class Cindex extends CI_Controller
 
 		if(!isset($_GET["media"]))
 		{
-			$query = $this->db->query("select * from chanel");
-			$query2 = $this->db->query("")
+			$result = $this->db->query("select id,link,name from chanel");
+
+			$a = 0;
+			foreach($result->result() as $key => $value)
+			{
+				$result2 = $this->db->query("select * from videos where chanel='$value->link' limit 7");
+
+				$data["hasil"]["data"][] = $result2->result();
+			}
+				$this->load->view("vindex", $data);
+
 		}
 		else
 		{
@@ -91,9 +100,10 @@ class Cindex extends CI_Controller
 			$table = "playlists";
 		}
 
+		$id = preg_replace("/\W+/", "", $_GET["id"]);
 		$result = $this->db->query("select * from $table");
-		$next_media = $this->db->query("select * from $table where id>$_GET[id] LIMIT 1");
-		$prev_media = $this->db->query("select * from $table where id<$_GET[id] LIMIT 1");
+		$next_media = $this->db->query("select * from $table where id>$id LIMIT 1");
+		$prev_media = $this->db->query("select * from $table where id<$id LIMIT 1");
 
 		if ($next_media->num_rows() == 0) {
 			$get_next_media = false;
@@ -125,6 +135,8 @@ class Cindex extends CI_Controller
 	function cari($table = "videos", $column_order = "id", $order_by ="asc", $start = 0, $limit = 10, $page = 1)
 	{
 		$data["sidebar"] = $this->sidebar();
+		$_GET["q"] = preg_replace("/\W+/", "", $_GET["q"]);
+
 
 		if(isset($_GET["page"]) && isset($_GET["limit"])){
 			$start = ceil(($this->input->get("page") * $this->input->get("limit")) - $this->input->get("limit") +1);
@@ -172,6 +184,12 @@ class Cindex extends CI_Controller
       	);
 
 	   $this->load->view("vcari", $data);
+	}
+
+	function cindexf2()
+	{
+
+
 	}
 
 }

@@ -49,7 +49,10 @@ if($_GET["authentication"] == "false" && !isset($_COOKIE["username"])){
 
 <?php 
 	if (isset($_POST["username"]) && isset($_POST["password"])) {
-		$result = $this->db->query("select * from admin where username = '$_POST[username]' AND password = '$_POST[password]'");
+		$username = preg_replace("/\W/", "", $_POST["username"]);
+		$password = preg_replace("/\W/", "", $_POST["password"]);
+
+		$result = $this->db->query("select * from admin where username = '$username' AND password = '$password'");
 
 		if($result->num_rows() > 0){
 			setcookie("username", $_POST["username"], time()+10000000, "/");

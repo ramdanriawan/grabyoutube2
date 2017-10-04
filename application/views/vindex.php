@@ -1,4 +1,6 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php'; ?><?php /*echo "<pre>";print_r($hasil);*/ ?>
+
+
 <div class="container" id="container-form">
 	<div class="row" id="row-form">
 		<div class="col-md-10 col-md-offset-1">
@@ -13,9 +15,57 @@
 	</div>
 </div>
 
+
+<?php 
+if(!isset($_GET["media"])):
+$a = 0;
+
+foreach($hasil["data"] as $key => $value) if($a < 10)
+{
+echo '<div class="row">
+	<div class="col-md-10 col-md-offset-1">';
+	echo "<h1>Videos dari {$value[0]->name}</h1>";
+
+	foreach ($value as $key => $value2) {
+echo <<<EOD
+				<div class="col-md-3">
+				<div class="thumbnail" style="height: 200px;">
+					<img src="$value2->gambar" />
+					<div class="caption">
+						<span><a href="http://$_SERVER[SERVER_NAME]/index.php/Cindex/Cindexstream?media=v&v=$value2->link&id=$value2->id" target="_blank"> $value2->judul</a></span><br>
+						<span><b>$value2->name</b></span> | 
+						<span>$value2->time</span>
+					</div>
+				</div>
+			</div>
+EOD;
+	}
+echo "<p>";
+echo <<<EOD
+<div class="col-md-3">
+				<div id="selengkapnya" class="thumbnail" style="height: 200px;">
+					<a href="http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&c={$value[0]->chanel}&videos=active&name={$value[0]->name}" target="_blank"><h3>Selengkapnya >>> </h3></a>
+					</div>
+				</div>
+			</div>';
+EOD;
+echo '</div>
+</div>';
+
+$a++;
+}
+
+?>
+
+<div class="row">
+	<div  id="lihat_semua_chanel" class="col-md-6 col-md-offset-3">
+		<a href="http://<?php echo $_SERVER[SERVER_NAME];?>/index.php/Cindex/cindexf?media=c&chanel=active">Lihat Semua Chanel</a>
+	</div>
+</div>
+<?php endif; ?>
 <div class="container" id="container-body">
 	<!--  jika media adalah videos atau tidak diset -->
-	<?php  if(($this->input->get("media") == "v" || !isset($_GET["media"])) && !isset($_GET["c"])  && $index["data_total"] > 0): ?>
+	<?php  if($this->input->get("media") == "v" && !isset($_GET["c"])  && $index["data_total"] > 0): ?>
 	<div class="row">
 		<div class="col-md-12">
 		<?php foreach($index["data"] as $key => $value): ?>
@@ -274,6 +324,7 @@
 </div>
 <?php endif; ?>
 
+<!-- untuk menampilkan data videos berdasarkan beberapa chanel -->
 	
 </div>
 
