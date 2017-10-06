@@ -3,7 +3,7 @@
 
 <div class="container" id="container-form">
 	<div class="row" id="row-form">
-		<div class="col-md-10 col-md-offset-1">
+		<div class="col-md-10 col-md-offset-1 col-xs-12">
 			<form id="form-search" class="form-inline col-md-12" method="get" action="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cari";?>">
 				<input type="hidden" name="media" value="v">
 				<div class="form-group row">
@@ -59,10 +59,12 @@ $a++;
 
 <div class="row">
 	<div  id="lihat_semua_chanel" class="col-md-6 col-md-offset-3">
-		<a href="http://<?php echo $_SERVER[SERVER_NAME];?>/index.php/Cindex/cindexf?media=c&chanel=active">Lihat Semua Chanel</a>
+		<a href="http://<?php echo $_SERVER[SERVER_NAME];?>/index.php/Cindex/cindexf?media=c&chanel=active">Lihat 
+			<?php echo $sidebar["data_total"];?> Chanel Lainnya</a>
 	</div>
 </div>
 <?php endif; ?>
+
 <div class="container" id="container-body">
 	<!--  jika media adalah videos atau tidak diset -->
 	<?php  if($this->input->get("media") == "v" && !isset($_GET["c"])  && $index["data_total"] > 0): ?>

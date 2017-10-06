@@ -142,6 +142,7 @@
             <th>Subscriber</th>
             <th>Videos</th>
             <th>Playlists</th>
+            <th>Kategory</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -158,7 +159,9 @@
                <td>$value->subscriber</td> 
                <td><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&c=$value->link&videos=active&name=$value->name' target='_blank'>Link</a></td>
                <td><a href='http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=p&c=$value->link&playlists=active&name=$value->name' target='_blank'>Link</a></td>
+               <td>$value->kategory</td>
                 <td><a href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cedit_admin?media=c&action=edit&id=$value->id'>Edit</a> | <a class='delete' href='http://$_SERVER[SERVER_NAME]/index.php/Cadmin/cedit_admin?media=c&action=delete&id=$value->id' data-id='$value->id' data-media='chanel'>Delete</a></td>
+
                  </tr>";
             }
             

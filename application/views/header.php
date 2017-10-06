@@ -4,6 +4,7 @@
 <html>
 <head>
 	<title>Header</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
 	<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="../../script/script.js"></script>
@@ -16,12 +17,12 @@
 	<div class="container" id="container-header">
 		<div class="row">
 
-			<div class="col-xs-4">
+			<div class="col-md-4 col-xs-12">
 				<div class="glyphicon glyphicon-th" id="chanel_toggler"></div> 
 				<span><a href="/" id="logo">Grabyoutube</a></span>
 			</div>
 
-			<div class="col-xs-8">
+			<div class="col-md-8 col-xs-12">
 				<ul class="nav nav-tabs pull-right">
 					<li class="<?php echo $this->input->get("chanel"); ?>"><a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=c&chanel=active";?>">Chanel</a></li>
 					<li class="<?php echo $this->input->get("videos"); ?>"><a href="<?php echo "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&videos=active";?>">Videos</a></li>
@@ -57,7 +58,7 @@
 				if($_GET["media"] == "v" || !isset($_GET["media"])){
 					$link = "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&c=$value->link&videos=active&name=$value->name";
 				}elseif($_GET["media"] == "p"){
-					$link = "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=v&c=$value->link&videos=active&name=$value->name";
+					$link = "http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf?media=p&c=$value->link&playlists=active&p=$value->playlists&name=$value->name";
 				}elseif($_GET["media"] == "c"){
 					$link = "$value->link";
 				}

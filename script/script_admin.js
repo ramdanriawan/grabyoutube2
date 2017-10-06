@@ -3,7 +3,7 @@ $(document).ready(function() {
   
 // untuk loader
 
-loader = $("#loader");
+var loader = $("#loader");
 function loaderShow(){
   loader.gSpinner({
     scale: 0.2
@@ -24,6 +24,7 @@ loaderHide();
     var This = $(this);
     
     var data = This.serialize();
+    var kategory = prompt("Inputkan kategory chanel", "Education");
     
     $.ajax({
       url     : "/index.php/Ctesturl/ctesturlf",
@@ -36,7 +37,7 @@ loaderHide();
             
             $.ajax({
               url    : "/index.php/Csavedb/csavedbcolumn",
-              data   : data,
+              data   : data+`&kategory=${kategory}`,
               success: function(response){
                 loaderHide();
 
@@ -47,6 +48,11 @@ loaderHide();
                   alert("Gagal menambah url chanel, mungkin terjadi duplicate, atau mungkin salah memasukkan url atau koneksi internet terputus");
                 }
               }
+            }).fail(function(){
+              loaderHide();
+              alert("gagal menambah url chanel, silakan ulangi request!");
+            }).always(function(){
+              loaderHide();
             });
           
         }else{
@@ -57,7 +63,7 @@ loaderHide();
     }).fail(function(){
       loaderHide();
       alert("gagal menambah url chanel, silakan ulangi request!");
-    }).complete(function(){
+    }).always(function(){
       loaderHide();
     })
   
@@ -91,7 +97,7 @@ modal_get_data.hide();
     }).fail(function(){
       alert("Gagal mengupdate data chanel");
       loader_get_data.gSpinner("hide");
-    }).complete(function(){
+    }).always(function(){
       loader_get_data.gSpinner("hide");
       console.log("success");
     })
@@ -147,7 +153,7 @@ modal_get_data.hide();
     }).fail(function(){
       loaderHide();
       alert("Gagal mengambil response yang diberikan");
-    }).complete(function(){
+    }).always(function(){
       loaderHide();
       alert("berhasil menambah data videos dari response yang diberikan");
     })
@@ -174,7 +180,7 @@ modal_get_data.hide();
     }).fail(function(){
       loaderHide();
       alert("Gagal mengambil response yang diberikan");
-    }).complete(function(){
+    }).always(function(){
       loaderHide();
       alert("berhasil menambah data videos dari response yang diberikan");
     })

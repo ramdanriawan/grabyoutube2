@@ -135,7 +135,7 @@ class Cindex extends CI_Controller
 	function cari($table = "videos", $column_order = "id", $order_by ="asc", $start = 0, $limit = 10, $page = 1)
 	{
 		$data["sidebar"] = $this->sidebar();
-		$_GET["q"] = preg_replace("/\W+/", "", $_GET["q"]);
+		$_GET["q"] = str_replace("990", " ", preg_replace("/\W/", "", preg_replace("/\s/", "990", $_GET["q"])));
 
 
 		if(isset($_GET["page"]) && isset($_GET["limit"])){

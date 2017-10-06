@@ -78,7 +78,7 @@ function grabyoutubevideos($chanel){
 		$data      = http_build_query($data, "", "&");
 
 		//gabungkan url save db dengan data field
-		$data_get = "http://localhost/index.php/Csavedb/csavedbf?media=v&" . $data;
+		$data_get = "http://$_SERVER[SERVER_NAME]/index.php/Csavedb/csavedbf?media=v&" . $data;
 
 		//tampilkan data hasil dari request ajax
 		echo "status: " . file_get_contents($data_get);
@@ -121,7 +121,7 @@ function grabyoutubeplaylists($chanel){
 		$data     = http_build_query($data, "", "&");
 
 		//gabungkan url save db dengan data field
-		$data_get = "http://localhost/index.php/Csavedb/csavedbf?media=p&" . $data;
+		$data_get = "http://$_SERVER[SERVER_NAME]/index.php/Csavedb/csavedbf?media=p&" . $data;
 
 		//tampilkan data hasil dari request ajax
 		//echo "status: " . file_get_contents($data_get);

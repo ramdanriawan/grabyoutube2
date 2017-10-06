@@ -78,10 +78,14 @@
   	$file   = $this->input->get("file");
   	$table  = $this->input->get("table");
   	$column = $this->input->get("column");
+    $kategory = $this->input->get("kategory");
 
-  	$this->load->model("Msavedb");
+    $array = array(
+      "link" => $file,
+      "kategory"=>$kategory
+    );
 
-  	$nilai = $this->Msavedb->msavedbcolumn($file, $table, $column);
+  	$nilai = $this->db->insert("chanel", $array);
 
   	if($nilai){
   		$data["status"] = "success";
