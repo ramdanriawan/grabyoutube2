@@ -21,7 +21,8 @@ class Cindex extends CI_Controller
 
 	function index()
 	{
-		header("Location: http://$_SERVER[SERVER_NAME]/index.php/Cindex/cindexf");
+		$base_url = base_url();
+		header("Location: {$base_url}/index.php/Cindex/cindexf");
 	}
 
 	function cindexf($table = "videos", $column_order = "id", $order_by ="asc", $start = 0, $limit = 10, $page = 1){
